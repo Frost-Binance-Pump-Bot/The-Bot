@@ -573,14 +573,21 @@ function start() {
         }
 
         tickPriceHttp()
-
+        console.log("")
         tickPriceWS()
+	console.log("")
 
         console.log(
-          chalk.magenta(
-            '\nNOW, TYPE\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - OPEN BROWSER TRADING PAIR LINK\no - Open browser with the Trading Pair\n0 - Toggle Manual(no take profits or stop losses)\n(Enter not needed)'
+          chalk.green.bold(
+            '\nHOTKEY AVAILABLE OPTION:')
+          )
+
+        console.log(
+          chalk.yellow.bold(
+            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - SHOW TRADING PAIR BROWSER LINK\nl - Open browser with the Trading Pair\nm - Toggle Manual(no take profits or stop losses)'
           )
         )
+        console.log("")
 
         rl.close()
 
@@ -619,21 +626,40 @@ function start() {
           if (key === '7') {
             market_buy(0.25)
           }
-          if (key === '0') {
+          if (key === 'm') {
             manual = !manual
             if (manual) {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.magentaBright('MANUAL ON'))
+              console.log(chalk.cyan.bold('MANUAL TRADING: ON'))
             } else {
-              console.log(chalk.magentaBright('MANUAL OFF'))
+              console.log(chalk.cyan.bold('MANUAL TRADING: OFF'))
+            }
+          }
+          if (key === 'M') {
+            manual = !manual
+            if (manual) {
+              if (timeout) {
+                clearTimeout(timeout)
+              }
+              console.log(chalk.cyan.bold('MANUAL TRADING: ON'))
+            } else {
+              console.log(chalk.cyan.bold('MANUAL TRADING: OFF'))
             }
           }
           if (key === 'b') {
              console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
           }
-          if (key === 'o') {
+          if (key === 'B') {
+            console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+          }
+          if (key === 'l') {
+            ChromeLauncher.launch({
+              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
+            })
+          }
+          if (key === 'L') {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
