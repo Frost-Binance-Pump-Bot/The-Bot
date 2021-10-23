@@ -6,7 +6,7 @@ Automation for Binance p&d(pump and dump) activity, ensures fastest purchase and
 
 Read these before you proceed.
 
-- Pump and dumps are SCAM.
+- Pump and dumps are SCAM (idk but yeah, admin bought first then member xD)
 - You are very likely to lose money.
 - Invest only what you can afford to lose.
 
@@ -14,16 +14,22 @@ But, `if you think there is a profit window in pump & dumps`, like I did, here's
 
 ## Prerequisites
 
-### Node.js
+### Node.js Installation
 
 You must have (Node.js)[https://nodejs.org/en/] installed!
+
+```bash
+sudo apt-get install npm -y
+npm install node
+````
 
 ## Installation
 
 `Clone` or `download` this repository, then:
 
 ```bash
-$ npm install
+cd <to_bot_src>
+npm install
 ```
 
 Meanwhile, You need to put your own Binance.com API Key and API Secret in your local `config.js` for the script to run.
@@ -36,7 +42,7 @@ And then you're all set.
 
 ## Configuration
 
-See `pump-config.js`, the `TRADE_IN` is important, it's the coin to trade for the pumped coin, usually it's `BTC`.
+See `pump-config.js`, the `TRADE_IN` is important, it's the coin to trade for the pumped coin, usually it's `BTC or USDT`.
 
 default configurations are as follow, you can tweak these settings as you like:
 
@@ -45,12 +51,12 @@ let config = {}
 
 // Config HERE
 // !!! The coin to trade in, make sure you have some in your balance
-config.TRADE_IN = 'BTC'
+config.TRADE_IN = 'USDT'
 // Should market price BUY ALL upon symbol
 config.BUY_UPON_SYMBOL = true
-// How many X before take profit happens (will sell 100%)
-config.HARD_TAKE_PROFIT = 3.3
-// Where to stop loss
+// How much percentage to take profit? (0.1 is 10% - 0.25 is 25% - 0.5 is 50% - 0.75 is 75% - 1.0 is 100%)
+config.HARD_TAKE_PROFIT = 1.0
+// Where to stop loss (0.1 is 10% - 0.25 is 25% - 0.5 is 50% - 0.75 is 75% - 1.0 is 100%)
 config.HARD_STOP_LOSS = 0.75
 // Soft stop loss (Array, please put in ascending order, orders will be put in quantity of divide of the array length, e.g length = 3 then sell 1/3 every time)
 // Not used anymore, bugs exist
@@ -74,12 +80,12 @@ module.exports = config
 
 First `make sure you have available balance` for the trading pair.
 
-For example, you know the trading pair is XXXX/BTC, then you need to have BTC in your available balance. (Command output will show this).
+For example, you know the trading pair is XXXX/BTC XXXX/USDT, then you need to have BTC or USDT in your available balance. (Command output will show this).
 
 Then, just run the following command 1~2 minutes before the pump starts:
 
 ```bash
-$ npm start
+npm start
 ```
 
 `For Windows, compatibility is better with Windows PowerShell or Git Bash. Using these two command line tools is recommended.`
@@ -92,7 +98,7 @@ Have the discord or Telegram or any communication tool that your group uses on t
 
 and follow the command output instructions.
 
-(`Inserting the coin name will trigger a 93% market buy immediately, divided into 4 market price orders`, e.g. 60% + 11% + 11% + 11%, to ensure max volume possible)
+(`Inserting the coin name will trigger a 100% market buy immediately.`)
 
 `The coin name is case ignored, you can input lower case.`
 
@@ -112,11 +118,12 @@ When the initial purchase is made, hotkeys are enabled:
 5 - BUY ALL(based on your balance)
 6 - BUY HALF
 7 - BUY QUARTER
-o - Open browser with the Trading Pair
-0 - Toggle Manual(no take profits or stop losses)
-(Enter key not needed)
-```
 
+b - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)
+l - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)
+m - Toggle Manual(no take profits or stop losses)
+```
+Primary Note: `Hotkeys case is full ignored, you can input upper or lower case`
 Note: `the script is not ready for second-entry during pumps, operate only with your first purchase.`
 
 ## Proxy/VPN Usage(For CN Users especially)
@@ -127,15 +134,13 @@ Search for `Proxy` in `pump.js`, change them to your local VPN port.
 
 Any feature add/improvements are welcome, just send a PR.
 
-This is a very sideways project for me, I might have little time to maintain this (and that I don't participate p&ds any more).
-
 ## Donation
 
 If this script helped you make profits or you simply want to support, feel free to donate to these addresses:
 
-![image-20210207190121838](./deposit-qr.png)
-
-- BTC(BTC): 1NjtcdoBwNhVfbvMf62NhwQaqUyR9wJBXt
-- BTC(ERC20): 0x13bc95cf2405477bf81644cd1825004d1e613d75
-- ETH(ERC20): 0x13bc95cf2405477bf81644cd1825004d1e613d75
-- USDT(ERC20): 0x13bc95cf2405477bf81644cd1825004d1e613d75
+- BTC(BTC): 3ArtipkmThLP37VAwNY3baAgKDG5EFrFU4
+- BTC(TRC20): TLzMANsugpyXaBfDNSjvV7Et9FzVezczF6
+- ETH(ERC20): 0x040c8732cbd6d00bd012f507cb86bf55e152f1ba
+- USDT(ERC20): 0x71e8b4845587e2f9154f6c81ea7af2359e641357
+- XRP(XRP) ADDRESS: rNFugeoj3ZN8Wv6xhuLegUBBPXKCyWLRkB  |  TAG ADDRESS: 1892320962
+- SHIB (ERC20): 0x040c8732cbd6d00bd012f507cb86bf55e152f1ba
