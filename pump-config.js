@@ -2,12 +2,12 @@ let config = {}
 
 // Config HERE
 // !!! The coin to trade in, make sure you have some in your balance
-config.TRADE_IN = 'BTC'
+config.TRADE_IN = 'USDT'
 // Should market price BUY ALL upon symbol
 config.BUY_UPON_SYMBOL = true
-// How many X before take profit happens (will sell 100%)
-config.HARD_TAKE_PROFIT = 3.3
-// Where to stop loss
+// How much percentage to take profit? (0.1 is 10% - 0.25 is 25% - 0.5 is 50% - 0.75 is 75% - 1.0 is 100%)
+config.HARD_TAKE_PROFIT = 1.0
+// Where to stop loss (0.1 is 10% - 0.25 is 25% - 0.5 is 50% - 0.75 is 75% - 1.0 is 100%)
 config.HARD_STOP_LOSS = 0.75
 // Soft stop loss (Array, please put in ascending order, orders will be put in quantity of divide of the array length, e.g length = 3 then sell 1/3 every time)
 // Not used anymore, bugs exist
