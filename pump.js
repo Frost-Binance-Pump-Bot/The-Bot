@@ -13,7 +13,7 @@ const utils = require('./utils.js')
 const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
-  console.error(chalk.red('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
+  console.error(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
 
@@ -255,7 +255,7 @@ function market_buy(percent) {
       getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
-          console.log(chalk.red('BUY FAILED'))
+          console.log(chalk.red.bold('BUY FAILED'))
           return
         }
         console.info(
@@ -519,7 +519,7 @@ function start() {
           )
         console.log(
           chalk.yellow.bold(
-            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - SHOW TRADING PAIR BROWSER LINK\nl - Open browser with the Trading Pair\nm - Toggle Manual(no take profits or stop losses)'
+            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - Show Trading Pair Browser Link (Good for virtual machine)\nl - Open browser with the Trading Pair (Do not use it when using virtual machine)\nm - Toggle Manual(no take profits or stop losses)'
           )
         )
         console.log("")
@@ -584,11 +584,15 @@ function start() {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
+          } else {
+	      console.log(chalk.red.bold('WARN: You are currently using virtual machine which cannot open browser'))
           }
           if (key === 'L') {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
+          } else {
+	      console.log(chalk.red.bold('WARN: You are currently using virtual machine which cannot open browser'))
           }
           // ctrl-c EXIT
           if (key === '\u0003') {
