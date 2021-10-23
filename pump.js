@@ -507,7 +507,8 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.error(chalk.red('\nWARN: NO TRADING PAIR'))
+          console.error(chalk.red.bold('\nWARN: NO TRADING PAIR'))
+	  process.exit()
         }
 
         console.log(chalk.blue('\nTRADING PAIR SET: ' + symbol))
