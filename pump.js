@@ -24,6 +24,8 @@ const {
   MAX_DRAWBACK,
   MAX_DRAWBACK_START,
   BUY_UPON_SYMBOL,
+  // SOFT_TAKE_PROFIT
+  // SOFT_TAKE_PROFIT_PERCENT
   PEAK_TAKE_PROFIT_THRESHOLD,
   PEAK_TAKE_PROFIT_TIMEOUT,
 } = pumpConfig
@@ -35,18 +37,24 @@ let exchangeInfo = {}
 let tradingPairInfo = null
 let lotSizeInfo = null
 let marketLotSizeInfo = null
+// Trading Symbol for the Trading Pair
 let symbol = ''
+// Price for TRADE_OUT Coins
 let price = ''
 let priceChangePercent = ''
 let globalMarkets = {}
 
+// Variables
 let snapshot_buy_price = ''
+// The max profit X we have made
 let max_profit_times = 0
 let initialBought = false
 let lastPrice = 0
 let timeout = null
 let drawbackStarted = false
 let softTakeProfitIndex = 0
+
+// MANUAL CONTROL (set true if you want to do your own buy and your own sell strategies)
 let manual = false
 
 const binance = new Binance().options({
@@ -75,7 +83,7 @@ function handlePrice() {
     if (price) {
       if (BUY_UPON_SYMBOL && !initialBought) {
         initialBought = true
-        market_buy()
+        market_buy() // You can put how much percentage you will buy inside of the parenthesis (eg. market_buy(0.75) for 75%)
       }
     }
 
@@ -122,6 +130,24 @@ function calculateTimesAndTriggerOrders() {
         console.log('\nTRIGGER HARD STOP LOSS')
         market_sell()
       }
+
+// ONLY ENABLE THIS ONE IF YOU ENABLED SOFT TAKE PROFIT IN YOUR CONFIG //
+
+      // if (
+      //   SOFT_TAKE_PROFIT &&
+      //   SOFT_TAKE_PROFIT.length > 0 &&
+      //   SOFT_TAKE_PROFIT[softTakeProfitIndex]
+      // ) {
+      //   if (times > SOFT_TAKE_PROFIT[softTakeProfitIndex]) {
+      //     console.log(
+      //       '\nTRIGGER SOFT TAKE PROFIT ' +
+      //         SOFT_TAKE_PROFIT[softTakeProfitIndex] +
+      //         'x'
+      //     )
+      //     market_sell((1 / SOFT_TAKE_PROFIT.length) * SOFT_TAKE_PROFIT_PERCENT)
+      //     softTakeProfitIndex += 1
+      //   }
+      // }
 
       if (times > PEAK_TAKE_PROFIT_THRESHOLD) {
         try {
@@ -449,6 +475,7 @@ function start() {
       terminal: false,
     })
 
+    const ChromeLauncher = require('chrome-launcher')
 
     rl.on('line', function (line) {
       if (!TRADE_OUT) {
@@ -492,7 +519,7 @@ function start() {
           )
         console.log(
           chalk.yellow.bold(
-            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - SHOW TRADING BROWSER LINK\nm - Toggle Manual(no take profits or stop losses)'
+            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - SHOW TRADING PAIR BROWSER LINK\nl - Open browser with the Trading Pair\nm - Toggle Manual(no take profits or stop losses)'
           )
         )
         console.log("")
@@ -552,6 +579,16 @@ function start() {
           }
           if (key === 'B') {
             console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+          }
+          if (key === 'l') {
+            ChromeLauncher.launch({
+              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
+            })
+          }
+          if (key === 'L') {
+            ChromeLauncher.launch({
+              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
+            })
           }
           // ctrl-c EXIT
           if (key === '\u0003') {
