@@ -519,11 +519,21 @@ function start() {
           )
         console.log(
           chalk.yellow.bold(
-            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - Show Trading Pair Browser Link (Good for virtual machine)\nl - Open browser with the Trading Pair (Do not use it when using virtual machine)\nm - Toggle Manual(no take profits or stop losses)'
+            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER'
           )
         )
         console.log("")
-        
+        console.log(
+          chalk.green.bold(
+            '\nMORE HOTKEY AVAILABLE OPTION:')
+          )
+        console.log(
+          chalk.blue.bold(
+            '\nb - Show Trading Pair Browser Link (Good for virtual machine)\nl - Open browser with the Trading Pair (Do not use it use it when using virtual machine)\nm - Toggle Manual(no take profits or stop losses)'
+          )
+        )
+        console.log("")
+
         rl.close()
 
         var stdin = process.stdin
