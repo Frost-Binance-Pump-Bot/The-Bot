@@ -519,6 +519,9 @@ function getBalance(init = false, cb) {
   })
 }
 
+Binance_Web = "https://www.binance.com/en/trade/"
+Binance_Pro = "?layout=pro"
+
 function start() {
   //minQty = minimum order quantity
   //minNotional = minimum order value (price * quantity)
@@ -544,6 +547,7 @@ function start() {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
+        symbolv2 = `${TRADE_OUT}_${TRADE_IN}`
 
         tradingPairInfo = exchangeInfo.filter(
           (item) => item.symbol == symbol
@@ -574,7 +578,7 @@ function start() {
 
         console.log(
           chalk.magenta(
-            '\nNOW, TYPE\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\no - Open browser with the Trading Pair\n0 - Toggle Manual(no take profits or stop losses)\n(Enter not needed)'
+            '\nNOW, TYPE\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - OPEN BROWSER TRADING PAIR LINK\no - Open browser with the Trading Pair\n0 - Toggle Manual(no take profits or stop losses)\n(Enter not needed)'
           )
         )
 
@@ -625,6 +629,9 @@ function start() {
             } else {
               console.log(chalk.magentaBright('MANUAL OFF'))
             }
+          }
+          if (key === 'b') {
+             console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
           }
           if (key === 'o') {
             ChromeLauncher.launch({
