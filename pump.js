@@ -1,21 +1,14 @@
 const isWin = process.platform === 'win32'
 
-/**
- * Proxy, uncomment for proxy usage
- */
-// if (isWin) {
-//   process.env.socks_proxy = 'socks5h://127.0.0.1:1084'
-// } else {
-//   process.env.socks_proxy = 'socks5h://127.0.0.1:1086'
-// }
-
-// Imports
 const chalk = require('chalk')
 const readline = require('readline')
 const Binance = require('node-binance-api')
 const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
+
+// for timestamping debugging only
+// require('log-timestamp')
 
 const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
@@ -31,8 +24,6 @@ const {
   MAX_DRAWBACK,
   MAX_DRAWBACK_START,
   BUY_UPON_SYMBOL,
-  // SOFT_TAKE_PROFIT,
-  // SOFT_TAKE_PROFIT_PERCENT,
   PEAK_TAKE_PROFIT_THRESHOLD,
   PEAK_TAKE_PROFIT_TIMEOUT,
 } = pumpConfig
@@ -44,33 +35,25 @@ let exchangeInfo = {}
 let tradingPairInfo = null
 let lotSizeInfo = null
 let marketLotSizeInfo = null
-// Trade Symbol for the trading pair
 let symbol = ''
-// Price for TRADE_OUT Coin
 let price = ''
-// Price Change % for TRADE_OUT Coin
 let priceChangePercent = ''
-// All prices
 let globalMarkets = {}
 
-// Variables
 let snapshot_buy_price = ''
-// The max profit X we have made
 let max_profit_times = 0
-// Has init bought (when BUY_UPON_SYMBOL is true)
 let initialBought = false
 let lastPrice = 0
 let timeout = null
 let drawbackStarted = false
 let softTakeProfitIndex = 0
-// Manual control, no take profit or stop loss
 let manual = false
 
 const binance = new Binance().options({
   APIKEY: API_KEY,
   APISECRET: API_SECRET,
   useServerTime: true,
-  recvWindow: 5000, // Set a higher recvWindow to increase response timeout
+  recvWindow: 5000,
   // verbose: true, // Add extra output when subscribing to WebSockets, etc
   log: (log) => {
     // console.log(log) // You can create your own logger here, or disable console output
@@ -131,7 +114,6 @@ function calculateTimesAndTriggerOrders() {
     if (times > max_profit_times) {
       max_profit_times = times
     }
-    // TAKE PROFIT AND STOP LOSS
     if (!manual) {
       if (HARD_TAKE_PROFIT > 0 && times >= HARD_TAKE_PROFIT) {
         console.log('\nTRIGGER HARD TAKE PROFIT')
@@ -140,22 +122,6 @@ function calculateTimesAndTriggerOrders() {
         console.log('\nTRIGGER HARD STOP LOSS')
         market_sell()
       }
-
-      // if (
-      //   SOFT_TAKE_PROFIT &&
-      //   SOFT_TAKE_PROFIT.length > 0 &&
-      //   SOFT_TAKE_PROFIT[softTakeProfitIndex]
-      // ) {
-      //   if (times > SOFT_TAKE_PROFIT[softTakeProfitIndex]) {
-      //     console.log(
-      //       '\nTRIGGER SOFT TAKE PROFIT ' +
-      //         SOFT_TAKE_PROFIT[softTakeProfitIndex] +
-      //         'x'
-      //     )
-      //     market_sell((1 / SOFT_TAKE_PROFIT.length) * SOFT_TAKE_PROFIT_PERCENT)
-      //     softTakeProfitIndex += 1
-      //   }
-      // }
 
       if (times > PEAK_TAKE_PROFIT_THRESHOLD) {
         try {
@@ -233,16 +199,6 @@ function tickPriceHttp() {
 
 function tickPriceWS() {
   if (symbol) {
-    // binance.websockets.miniTicker(symbol, (error, response) => {
-    //   if (error) {
-    //     console.error(error)
-    //     return
-    //   }
-    //   // console.info('TICKER RESPONSE')
-    //   // console.log(response)
-    //   console.log(typeof response, response)
-    //   price = response.close
-    // })
     binance.websockets.prevDay(symbol, (error, response) => {
       if (error) {
         try {
@@ -313,7 +269,6 @@ function market_sell(percent, retry = true) {
         return
       }
       console.info(chalk.bgRed(`Market Sell ${percent * 100}% SUCCESS`))
-      // Now you can limit sell with a stop loss, etc.
       setTimeout(getBalance, 1500)
     })
   } else {
@@ -338,8 +293,6 @@ function resetStatistics() {
       console.error(err)
     }
   }
-  // drawbackStarted = false
-  // softTakeProfitIndex = 0
 }
 
 function getCorrectQuantity(quantity) {
@@ -387,24 +340,19 @@ function getCorrectQuantity(quantity) {
 function getBalance(init = false, cb) {
   binance.balance((error, balances) => {
     if (error) return console.error(error)
-    let newBalance = balances
-    // Object.entries(balances)
-    //   .filter((arr) => parseFloat(arr[1].available) > 0)
-    //   .forEach((arr) => {
-    //     newBalance[arr[0]] = arr[1]
-    //   })
-
+    let newBalance = balances       
+                
     if (init) {
-      if (newBalance[TRADE_IN]) {
-        console.clear()
-        console.log("")
-        console.log("")
-        console.log("")
-        console.log("")
-        console.log("")
-        console.log("")
-        console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
-        console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
+      if (newBalance[TRADE_IN]) { 
+    console.clear()
+    console.log("")
+    console.log("")
+    console.log("")
+    console.log("")
+    console.log("")
+    console.log("")
+    console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
+    console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
       } else {
         console.log(chalk.red(`WARNING: YOU DO NOT HAVE ANY ${TRADE_IN}`))
         // process.exit()
@@ -464,19 +412,11 @@ function getBalance(init = false, cb) {
     if (cb) {
       cb(newBalance)
     }
-
-    // test
-    // balance[TRADE_IN] = { available: 100, onOrder: 0 }
-    // balance[TRADE_OUT] = { available: 100, onOrder: 0 }
   })
 }
-
 Binance_Web = "https://www.binance.com/en/trade/"
 Binance_Pro = "?layout=pro"
-
 function start() {
-  //minQty = minimum order quantity
-  //minNotional = minimum order value (price * quantity)
   binance.exchangeInfo(function (error, data) {
     if (error) {
       console.log(chalk.red(`GET exchangeInfo failed, exiting...`))
@@ -484,7 +424,6 @@ function start() {
     }
 
     exchangeInfo = data.symbols
-
     console.log("")
     console.log("")
     console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO'))
@@ -510,14 +449,12 @@ function start() {
       terminal: false,
     })
 
-    const ChromeLauncher = require('chrome-launcher')
 
     rl.on('line', function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
         symbolv2 = `${TRADE_OUT}_${TRADE_IN}`
-
         tradingPairInfo = exchangeInfo.filter(
           (item) => item.symbol == symbol
         )[0]
@@ -530,11 +467,13 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.error(chalk.red.bold('\nWARN: NO TRADING PAIR'))
-	  process.exit()
+          console.error(chalk.red('\nWARN: NO TRADING PAIR'))
+          process.exit()
         }
-
-        console.log(chalk.blue('\nTRADING PAIR SET: ' + symbol))
+        
+        console.log("")
+        console.log(chalk.blue.bold('\nTRADING PAIR SET: ' + symbol))
+        console.log("")
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
@@ -545,35 +484,25 @@ function start() {
         tickPriceHttp()
         console.log("")
         tickPriceWS()
-	console.log("")
-
+        console.log("")
+        
         console.log(
           chalk.green.bold(
             '\nHOTKEY AVAILABLE OPTION:')
           )
-
         console.log(
           chalk.yellow.bold(
-            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - SHOW TRADING PAIR BROWSER LINK\nl - Open browser with the Trading Pair\nm - Toggle Manual(no take profits or stop losses)'
+            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER\nb - SHOW TRADING BROWSER LINK\nm - Toggle Manual(no take profits or stop losses)'
           )
         )
         console.log("")
-
+        
         rl.close()
 
         var stdin = process.stdin
-
-        // without this, we would only get streams once enter is pressed
         stdin.setRawMode(true)
-
-        // resume stdin in the parent process (node app won't quit all by itself
-        // unless an error or process.exit() happens)
         stdin.resume()
-
-        // i don't want binary, do you?
         stdin.setEncoding('utf8')
-
-        // on any data into stdin
         stdin.on('data', function (key) {
           if (key === '1') {
             market_sell(1, false)
@@ -619,20 +548,10 @@ function start() {
             }
           }
           if (key === 'b') {
-             console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+            console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
           }
           if (key === 'B') {
             console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
-          }
-          if (key === 'l') {
-            ChromeLauncher.launch({
-              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
-            })
-          }
-          if (key === 'L') {
-            ChromeLauncher.launch({
-              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
-            })
           }
           // ctrl-c EXIT
           if (key === '\u0003') {
