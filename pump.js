@@ -396,9 +396,15 @@ function getBalance(init = false, cb) {
 
     if (init) {
       if (newBalance[TRADE_IN]) {
-        console.log(
-          chalk.yellow(`YOU HAVE ${newBalance[TRADE_IN].available} ${TRADE_IN}`)
-        )
+        console.clear()
+        console.log("")
+        console.log("")
+        console.log("")
+        console.log("")
+        console.log("")
+        console.log("")
+        console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
+        console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
       } else {
         console.log(chalk.red(`WARNING: YOU DO NOT HAVE ANY ${TRADE_IN}`))
         // process.exit()
@@ -479,7 +485,24 @@ function start() {
 
     exchangeInfo = data.symbols
 
-    console.log(chalk.magenta('INPUT FIRST COIN OF TRADE PAIR TO CONTINUE'))
+    console.log("")
+    console.log("")
+    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.log("")
+    console.log("")
+    console.log("")
+    console.log(chalk.white('STATUS:'))
+    console.log(chalk.green.inverse('- CONNECTED! (API)'))
+    console.log(chalk.green.inverse('- CONNECTED! (BOT)'))
+    console.log("")
+    console.log("")
+    console.log(chalk.bgRed('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
+    console.log("")
+    console.log("")
+    console.log(chalk.magenta.bold('COIN THAT WILL PUMP:'))
 
     var rl = readline.createInterface({
       input: process.stdin,
