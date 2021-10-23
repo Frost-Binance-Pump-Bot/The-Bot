@@ -270,73 +270,19 @@ function market_buy(percent) {
 
     binance.marketBuy(
       symbol,
-      getCorrectQuantity(fullQuantity * 0.6),
+      getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
-          console.error(error.body ? error.body : error)
           console.log(chalk.red('BUY FAILED'))
           return
         }
         console.info(
-          chalk.bgGreen(`Market Buy ${percent * 100 * 0.6}% SUCCESS`)
+          chalk.bgGreen(`Market Buy ${percent * 100 * 1}% SUCCESS`)
         )
-        // Now you can limit sell with a stop loss, etc.
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
         }
         setTimeout(getBalance, 1500)
-      }
-    )
-    binance.marketBuy(
-      symbol,
-      getCorrectQuantity(fullQuantity * 0.11),
-      (error, response) => {
-        if (error) {
-          console.error(error.body ? error.body : error)
-          console.log(chalk.red('BUY FAILED'))
-          return
-        }
-        console.info(
-          chalk.bgGreen(`Market Buy ${percent * 100 * 0.11}% SUCCESS`)
-        )
-        // Now you can limit sell with a stop loss, etc.
-        if (price) {
-          snapshot_buy_price = (' ' + price).slice(1)
-        }
-      }
-    )
-    binance.marketBuy(
-      symbol,
-      getCorrectQuantity(fullQuantity * 0.11),
-      (error, response) => {
-        if (error) {
-          console.error(error.body ? error.body : error)
-          console.log(chalk.red('BUY FAILED'))
-          return
-        }
-        console.info(
-          chalk.bgGreen(`Market Buy ${percent * 100 * 0.11}% SUCCESS`)
-        ) // Now you can limit sell with a stop loss, etc.
-        if (price) {
-          snapshot_buy_price = (' ' + price).slice(1)
-        }
-      }
-    )
-    binance.marketBuy(
-      symbol,
-      getCorrectQuantity(fullQuantity * 0.11),
-      (error, response) => {
-        if (error) {
-          console.error(error.body ? error.body : error)
-          console.log(chalk.red('BUY FAILED'))
-          return
-        }
-        console.info(
-          chalk.bgGreen(`Market Buy ${percent * 100 * 0.11}% SUCCESS`)
-        ) // Now you can limit sell with a stop loss, etc.
-        if (price) {
-          snapshot_buy_price = (' ' + price).slice(1)
-        }
       }
     )
   } else {
