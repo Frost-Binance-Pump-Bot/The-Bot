@@ -528,8 +528,8 @@ function start() {
             '\nMORE HOTKEY AVAILABLE OPTION:')
           )
         console.log(
-          chalk.blue.bold(
-            '\nb - Show Trading Pair Browser Link (Good for virtual machine)\nl - Open browser with the Trading Pair (Do not use it use it when using virtual machine)\nm - Toggle Manual(no take profits or stop losses)'
+          chalk.cyan.bold(
+            '\nb - Show Trading Pair Browser Link (Good for virtual machine)\nl - Open browser with the Trading Pair (Do not use it use it when using virtual machine)\nm - Toggle Manual(no take profits or stop losses.toUpperCase())'
           )
         )
         console.log("")
@@ -594,16 +594,12 @@ function start() {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
-          } else {
-	      console.log(chalk.red.bold('WARN: You are currently using virtual machine which cannot open browser'))
           }
           if (key === 'L') {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
-          } else {
-	      console.log(chalk.red.bold('WARN: You are currently using virtual machine which cannot open browser'))
-          }
+	  }
           // ctrl-c EXIT
           if (key === '\u0003') {
             process.exit()
