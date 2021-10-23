@@ -529,7 +529,7 @@ function start() {
           )
         console.log(
           chalk.cyan.bold(
-            '\nb - Show Trading Pair Browser Link (Good for virtual machine)\nl - Open browser with the Trading Pair (Do not use it use it when using virtual machine)\nm - Toggle Manual(no take profits or stop losses.toUpperCase())'
+            '\nb - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)\nl - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)\nm - Toggle Manual(no take profits or stop losses)'
           )
         )
         console.log("")
