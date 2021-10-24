@@ -7,6 +7,9 @@ const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
 
+// For Console stamping features
+//const console-stamp = require('console-stamp')
+
 // for timestamping debugging only
 // require('log-timestamp')
 
