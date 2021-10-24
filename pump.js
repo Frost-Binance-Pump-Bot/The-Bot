@@ -380,10 +380,12 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.log(chalk.redBright('quantity is LARGER than max'))
+    console.log(chalk.redBright('quantity is LARGER than max'))\
+    console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.log(chalk.redBright('quantity is SMALLER than min'))
+    console.info("")
     quantity = minQty
   }
 
@@ -517,13 +519,13 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.log(chalk.red('\nWARN: NO TRADING PAIR'))
+          console.log(chalk.red('WARN: NO TRADING PAIR'))
           process.exit()
         }
         
-        console.log("")
-        console.log(chalk.blue.bold('\nTRADING PAIR SET: ' + symbol))
-        console.log("")
+        console.info("")
+        console.log(chalk.blue.bold('TRADING PAIR SET: ' + symbol))
+        console.info("")
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
@@ -536,25 +538,20 @@ function start() {
         tickPriceWS()
         console.log("")
         
-        console.log(
-          chalk.green.bold(
-            '\nHOTKEY AVAILABLE OPTION:')
-          )
-        console.log(
-          chalk.yellow.bold(
-            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER'
-          )
-        )
+        console.log(chalk.green.bold('HOTKEY AVAILABLE OPTION:'))
+        console.info("")
+        console.log(chalk.yellow.bold('1 - SELL ALL'))
+        console.log(chalk.yellow.bold('2 - SELL HALF'))
+        console.log(chalk.yellow.bold('3 - SELL QUARTER'))
+        console.log(chalk.yellow.bold('4 - SELL 10%'))
+        console.log(chalk.yellow.bold('5 - BUY ALL'))
+        console.log(chalk.yellow.bold('6 - BUY HALF'))
+        console.log(chalk.yellow.bold('7 - BUY QUARTER'))
         console.log("")
-        console.log(
-          chalk.green.bold(
-            '\nMORE HOTKEY AVAILABLE OPTION:')
-          )
-        console.log(
-          chalk.cyan.bold(
-            '\nb - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)\nl - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)\nm - Toggle Manual(no take profits or stop losses)'
-          )
-        )
+        console.log(chalk.green.bold('MORE HOTKEY AVAILABLE OPTION:'))
+        console.log(chalk.cyan.bold('b - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)'))
+        console.log(chalk.cyan.bold('l - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)'))
+        console.log(chalk.cyan.bold('m - Toggle Manual(no take profits or stop losses)'))
         console.log("")
 
         rl.close()
