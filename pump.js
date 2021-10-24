@@ -497,7 +497,7 @@ function start() {
     console.log(chalk.black.bold.bgRed('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
     console.info("")
     console.info("")
-    console.log(chalk.black.bold.bgYellow('COIN THAT WILL PUMP:'))
+    console.log(chalk.white.bold.bgYellow('COIN THAT WILL PUMP:'))
 
     var rl = readline.createInterface({
       input: process.stdin,
