@@ -547,7 +547,7 @@ function start() {
         console.info("")
         console.log(chalk.yellow.bold('1  - ', chalk.black.bold.bgYellow('SELL ALL')))
         console.log(chalk.yellow.bold('2  - ', chalk.black.bold.bgYellow('SELL HALF')))
-        console.log(chalk.yellow.bold('3  - ', chalk.black.bold.bgYellow(''SELL QUARTER')))
+        console.log(chalk.yellow.bold('3  - ', chalk.black.bold.bgYellow('SELL QUARTER')))
         console.log(chalk.yellow.bold('4  - ', chalk.black.bold.bgYellow('SELL 10%')))
         console.log(chalk.yellow.bold('5  - ', chalk.black.bold.bgYellow('BUY ALL')))
         console.log(chalk.yellow.bold('6  - ', chalk.black.bold.bgYellow('BUY HALF')))
