@@ -312,7 +312,6 @@ function market_sell(percent, retry = true) {
 
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
-        console.log(error.body ? error.body : error)
         console.log(chalk.red.bold('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
