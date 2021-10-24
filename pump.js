@@ -284,7 +284,7 @@ function market_buy(percent) {
       getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
-          console.log(chalk.red.bold('ERROR: BUY FAILED'))
+          console.log(chalk.black.bold.bgRed('ERROR: BUY FAILED'))
           return
         }
         console.log(
@@ -297,7 +297,7 @@ function market_buy(percent) {
       }
     )
   } else {
-    console.log(chalk.red.bold(`NO ${TRADE_IN} AVAILABLE`))
+    console.log(chalk.black.bold.bgRed(`NO ${TRADE_IN} AVAILABLE`))
   }
 }
 
@@ -312,7 +312,7 @@ function market_sell(percent, retry = true) {
 
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
-        console.log(chalk.red.bold('ERROR: SELL FAILED'))
+        console.log(chalk.black.bold.bgRed('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
             console.log(chalk.green.bold('RETRYING...'))
@@ -326,7 +326,7 @@ function market_sell(percent, retry = true) {
       setTimeout(getBalance, 1500)
     })
   } else {
-    console.log(chalk.red.bold(`NO ${TRADE_OUT} AVAILABLE`))
+    console.log(chalk.black.bold.bgRed(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
 
@@ -380,15 +380,15 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info("")
-    console.log(chalk.red.inverse('WARN: coin quantity is LARGER than max'))
-    console.log(chalk.red.inverse('Please check coin balance to proceed'))
+    console.log(chalk.black.bold.bgRed('WARN: coin quantity is LARGER than max'))
+    console.log(chalk.black.bold.bgRed('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(chalk.red.inverse('WARN: coin quantity is SMALLER than min'))
-    console.log(chalk.red.inverse('Please check coin balance to proceed'))
+    console.log(chalk.black.bold.bgRed('WARN: coin quantity is SMALLER than min'))
+    console.log(chalk.black.bold.bgRed('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info("")
     quantity = minQty
@@ -407,8 +407,8 @@ function getBalance(init = false, cb) {
     if (init) {
       if (newBalance[TRADE_IN]) {
         console.clear()
-        console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
-        console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
+        console.log(chalk.yellow.bold.inverse(`BINANCE CURRENT WALLET BALANCE:`))
+        console.log(chalk.green.bold(` - ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
       } else {
         console.log(chalk.red(`WARNING: YOU DO NOT HAVE ANY ${TRADE_IN}`))
         // process.exit()
@@ -530,8 +530,8 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.log(chalk.red.bold('WARN: NO TRADING PAIR'))
-	  console.log(chalk.red.bold('PLEASE CHECK TRADING PAIR!'))
+          console.log(chalk.black.bold.bgRed('WARN: NO TRADING PAIR'))
+	  console.log(chalk.black.bold.bgRed('PLEASE CHECK TRADING PAIR!'))
           process.exit()
         }
 
@@ -549,7 +549,7 @@ function start() {
         tickPriceWS()
         console.info("")
 
-        console.log(chalk.bold('HOTKEY AVAILABLE OPTION:'))
+        console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
         console.info("")
         console.log(chalk.yellow.bold('1  - ', chalk.black.bold.bgYellow(' SELL ALL ')))
         console.log(chalk.yellow.bold('2  - ', chalk.black.bold.bgYellow(' SELL HALF ')))
@@ -559,7 +559,7 @@ function start() {
         console.log(chalk.yellow.bold('6  - ', chalk.black.bold.bgYellow(' BUY HALF ')))
         console.log(chalk.yellow.bold('7  - ', chalk.black.bold.bgYellow(' BUY QUARTER ')))
         console.info("")
-        console.log(chalk.bold('MORE HOTKEY AVAILABLE OPTION:'))
+        console.log(chalk.white.dim('MORE HOTKEY AVAILABLE OPTION:'))
         console.info("")
         console.log(chalk.cyan.bold('b  - ', chalk.black.bold.bgYellow(' SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE) ')))
         console.log(chalk.cyan.bold('l  - ', chalk.black.bold.bgYellow(' OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE) ')))
