@@ -25,15 +25,15 @@ console.log = function () {
         var seconds = date.getSeconds();
         var milliseconds = date.getMilliseconds();
 
-        return '[' +
+        return '[ ' +
                ((hour < 10) ? '0' + hour: hour) +
-               ':' +
+               'H:' +
                ((minutes < 10) ? '0' + minutes: minutes) +
-               ':' +
+               'M:' +
                ((seconds < 10) ? '0' + seconds: seconds) +
-               ':' +
+               'S:' +
                ('00' + milliseconds).slice(-3) +
-               ']: ';
+               'ms ]: ';
     }
 
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
@@ -194,7 +194,7 @@ function calculateTimesAndTriggerOrders() {
             market_sell()
           }, PEAK_TAKE_PROFIT_TIMEOUT)
         } catch (err) {
-          console.error(err)
+          console.log(err)
         }
       }
 
@@ -225,7 +225,7 @@ function tickPriceHttp() {
   if (symbol) {
     binance.prices(symbol, function (error, ticker) {
       if (error) {
-        // console.error('Error fetching price')
+        // console.log('Error fetching price')
         return
       }
       if (price !== ticker[symbol]) {
@@ -235,7 +235,7 @@ function tickPriceHttp() {
     })
     binance.prevDay(symbol, (error, prevDay, returnSymbol) => {
       if (error) {
-        // console.error('Error fetching prevDay')
+        // console.log('Error fetching prevDay')
         return
       }
       priceChangePercent = prevDay.priceChangePercent
@@ -257,9 +257,9 @@ function tickPriceWS() {
     binance.websockets.prevDay(symbol, (error, response) => {
       if (error) {
         try {
-          console.error(chalk.red(`WS ERROR ${error.split('\n')[0]}`))
+          console.log(chalk.red(`WS ERROR ${error.split('\n')[0]}`))
         } catch (err) {
-          console.error(err)
+          console.log(err)
         }
         return
       }
@@ -312,7 +312,7 @@ function market_sell(percent, retry = true) {
 
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
-        console.error(error.body ? error.body : error)
+        console.log(error.body ? error.body : error)
         console.log(chalk.red('SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
@@ -345,7 +345,7 @@ function resetStatistics() {
       clearTimeout(timeout)
       timeout = null
     } catch (err) {
-      console.error(err)
+      console.log(err)
     }
   }
 }
@@ -359,7 +359,7 @@ function getCorrectQuantity(quantity) {
     maxQty = lotSizeInfo.maxQty
     stepSize = lotSizeInfo.stepSize
   } else {
-    console.error(chalk.red('NO LOT SIZE INFO'))
+    console.log(chalk.red('NO LOT SIZE INFO'))
     minQty = '0.01'
     maxQty = '99999999999'
     stepSize = '0.01'
@@ -394,7 +394,7 @@ function getCorrectQuantity(quantity) {
 
 function getBalance(init = false, cb) {
   binance.balance((error, balances) => {
-    if (error) return console.error(error)
+    if (error) return console.log(error)
     let newBalance = balances       
                 
     if (init) {
@@ -445,8 +445,8 @@ function getBalance(init = false, cb) {
             resetStatistics()
           }
         } catch (err) {
-          console.error(err)
-          console.error('Reset statistics failed')
+          console.log(err)
+          console.log('Reset statistics failed')
         }
       }
       if (
@@ -523,7 +523,7 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.error(chalk.red('\nWARN: NO TRADING PAIR'))
+          console.log(chalk.red('\nWARN: NO TRADING PAIR'))
           process.exit()
         }
         
@@ -653,7 +653,7 @@ function start() {
         globalMarkets = { ...globalMarkets, ...markets }
       }
     } catch (err) {
-      // console.error(err)
+      // console.log(err)
     }
   })
 }
