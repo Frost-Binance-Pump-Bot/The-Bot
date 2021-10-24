@@ -592,12 +592,12 @@ function start() {
           }
           if (key === 'l') {
             ChromeLauncher.launch({
-              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
+              startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
           }
           if (key === 'L') {
             ChromeLauncher.launch({
-              startingUrl: `https://www.binance.com/cn/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
+              startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
 	  }
           // ctrl-c EXIT
