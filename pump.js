@@ -533,8 +533,7 @@ function start() {
           handlePrice()
         }
 
-        tickPriceHttp(callback)
-        console.log(callback.toString())
+        tickPriceHttp()
         console.info("")
         tickPriceWS()
         console.info("")
