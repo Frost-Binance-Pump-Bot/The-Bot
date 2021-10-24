@@ -529,11 +529,11 @@ function start() {
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
-          console.log(`GLOBAL ${symbol} is ${globalMarkets[symbol].close}`)
+          console.log(`GLOBAL PRICE OF ${symbol} is ${globalMarkets[symbol].close}`)
           handlePrice()
         }
 
-        tickPriceHttp()
+        console.info("") tickPriceHttp()
         console.info("")
         tickPriceWS()
         console.info("")
