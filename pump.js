@@ -538,11 +538,11 @@ function start() {
         }
 
         console.info("")
-        console.log(chalk.blue.bold('TRADING PAIR SET: ' + symbol))
+        console.log(chalk.blue.bold('TRADING PAIR SET: ', chalk.magenta.bold(`${TRADE_OUT}${TRADE_IN}`)))
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
-          console.log(`GLOBAL PRICE OF ${symbol} is ${globalMarkets[symbol].close}`)
+          console.log(`GLOBAL PRICE OF`, chalk.magenta.bold(`${TRADE_OUT}${TRADE_IN}`) + `is ${globalMarkets[symbol].close}`)
           handlePrice()
         }
 
