@@ -475,23 +475,23 @@ function start() {
     }
 
     exchangeInfo = data.symbols
-    console.log("")
-    console.log("")
+    console.info("")
+    console.info("")
     console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.log("")
-    console.log("")
-    console.log("")
+    console.info("")
+    console.info("")
+    console.info("")
     console.log(chalk.white('STATUS:'))
     console.log(chalk.green.inverse('- CONNECTED! (API)'))
     console.log(chalk.green.inverse('- CONNECTED! (BOT)'))
-    console.log("")
-    console.log("")
+    console.info("")
+    console.info("")
     console.log(chalk.bgRed('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
-    console.log("")
-    console.log("")
+    console.info("")
+    console.info("")
     console.log(chalk.magenta.bold('COIN THAT WILL PUMP:'))
 
     var rl = readline.createInterface({
@@ -525,7 +525,6 @@ function start() {
         
         console.info("")
         console.log(chalk.blue.bold('TRADING PAIR SET: ' + symbol))
-        console.info("")
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
@@ -534,9 +533,9 @@ function start() {
         }
 
         tickPriceHttp()
-        console.log("")
+        console.info("")
         tickPriceWS()
-        console.log("")
+        console.info("")
         
         console.log(chalk.green.bold('HOTKEY AVAILABLE OPTION:'))
         console.info("")
@@ -547,12 +546,12 @@ function start() {
         console.log(chalk.yellow.bold('5 - BUY ALL'))
         console.log(chalk.yellow.bold('6 - BUY HALF'))
         console.log(chalk.yellow.bold('7 - BUY QUARTER'))
-        console.log("")
+        console.info("")
         console.log(chalk.green.bold('MORE HOTKEY AVAILABLE OPTION:'))
         console.log(chalk.cyan.bold('b - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)'))
         console.log(chalk.cyan.bold('l - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)'))
         console.log(chalk.cyan.bold('m - Toggle Manual(no take profits or stop losses)'))
-        console.log("")
+        console.info("")
 
         rl.close()
 
