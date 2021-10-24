@@ -503,7 +503,7 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.question('Input Coin:', function (line) {
+    rl.question('[                   ]: ', function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
