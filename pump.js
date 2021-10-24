@@ -400,12 +400,6 @@ function getBalance(init = false, cb) {
     if (init) {
       if (newBalance[TRADE_IN]) { 
     console.clear()
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log("")
     console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
     console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
       } else {
