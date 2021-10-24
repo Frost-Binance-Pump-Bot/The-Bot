@@ -380,12 +380,17 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.log(chalk.red.inverse('WARN: buy quantity is LARGER than max'))
+    console.info("")
+    console.log(chalk.red.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(chalk.red.inverse('Please check coin balance to proceed'))
+    //console.log(chalk.red.inverse())
     console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(chalk.red.inverse('WARN: buy quantity is SMALLER than min'))
+    console.log(chalk.red.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(chalk.red.inverse('Please check coin balance to proceed'))
+    //console.log(chalk.red.inverse())
     console.info("")
     quantity = minQty
   }
@@ -553,7 +558,7 @@ function start() {
         console.info("")
         console.log(chalk.cyan.bold('b - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)'))
         console.log(chalk.cyan.bold('l - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)'))
-        console.log(chalk.cyan.bold('m - Toggle Manual(no take profits or stop losses)'))
+        console.log(chalk.cyan.bold('m - Toggle Manual(manual sell & buy [no take profit or stop loss])'))
         console.info("")
 
         rl.close()
