@@ -284,7 +284,7 @@ function market_buy(percent) {
       getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
-          console.log(chalk.red.bold('BUY FAILED'))
+          console.log(chalk.red.bold('ERROR: BUY FAILED'))
           return
         }
         console.info(
@@ -297,7 +297,7 @@ function market_buy(percent) {
       }
     )
   } else {
-    console.log(chalk.redBright(`NO ${TRADE_IN} AVAILABLE`))
+    console.log(chalk.red.bold(`NO ${TRADE_IN} AVAILABLE`))
   }
 }
 
@@ -313,10 +313,10 @@ function market_sell(percent, retry = true) {
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
         console.log(error.body ? error.body : error)
-        console.log(chalk.red('SELL FAILED'))
+        console.log(chalk.red.bold('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
-            console.log('\nRETRYING...')
+            console.log(chalk.green.bold('RETRYING...')
             market_sell(percent)
           })
         }
@@ -327,7 +327,7 @@ function market_sell(percent, retry = true) {
       setTimeout(getBalance, 1500)
     })
   } else {
-    console.log(chalk.redBright(`NO ${TRADE_OUT} AVAILABLE`))
+    console.log(chalk.red.bold(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
 
@@ -380,12 +380,12 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.log(chalk.redBright('quantity is LARGER than max'))
+    console.log(chalk.red.inverse('WARN: buy quantity is LARGER than max'))
     console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(chalk.redBright('quantity is SMALLER than min'))
+    console.log(chalk.red.inverse('WARN: buy quantity is SMALLER than min'))
     console.info("")
     quantity = minQty
   }
@@ -520,7 +520,8 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.log(chalk.red('WARN: NO TRADING PAIR'))
+          console.log(chalk.red.bold('WARN: NO TRADING PAIR'))
+	  console.log(chalk.red.bold('PLEASE CHECK TRADING PAIR!'))
           process.exit()
         }
         
