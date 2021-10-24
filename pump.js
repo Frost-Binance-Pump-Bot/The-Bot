@@ -316,7 +316,7 @@ function market_sell(percent, retry = true) {
         console.log(chalk.red.bold('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
-            console.log(chalk.green.bold('RETRYING...')
+            console.log(chalk.green.bold('RETRYING...'))
             market_sell(percent)
           })
         }
