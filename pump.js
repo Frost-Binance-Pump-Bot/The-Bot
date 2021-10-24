@@ -284,7 +284,7 @@ function market_buy(percent) {
       getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
-          console.log(chalk.black.bold.bgRed('ERROR: BUY FAILED'))
+          console.log(chalk.red.bold.inverse('ERROR: BUY FAILED'))
           return
         }
         console.log(
@@ -297,7 +297,7 @@ function market_buy(percent) {
       }
     )
   } else {
-    console.log(chalk.black.bold.bgRed(`NO ${TRADE_IN} AVAILABLE`))
+    console.log(chalk.red.bold.inverse(`NO ${TRADE_IN} AVAILABLE`))
   }
 }
 
@@ -312,7 +312,7 @@ function market_sell(percent, retry = true) {
 
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
-        console.log(chalk.black.bold.bgRed('ERROR: SELL FAILED'))
+        console.log(chalk.red.bold.inverse('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
             console.log(chalk.green.bold('RETRYING...'))
@@ -326,7 +326,7 @@ function market_sell(percent, retry = true) {
       setTimeout(getBalance, 1500)
     })
   } else {
-    console.log(chalk.black.bold.bgRed(`NO ${TRADE_OUT} AVAILABLE`))
+    console.log(chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
 
@@ -380,15 +380,15 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info("")
-    console.log(chalk.black.bold.bgRed('WARN: coin quantity is LARGER than max'))
-    console.log(chalk.black.bold.bgRed('Please check coin balance to proceed'))
+    console.log(chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(chalk.black.bold.bgRed('WARN: coin quantity is SMALLER than min'))
-    console.log(chalk.black.bold.bgRed('Please check coin balance to proceed'))
+    console.log(chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info("")
     quantity = minQty
@@ -495,12 +495,12 @@ function start() {
     console.info("")
     console.info("")
     console.info("")
-    console.log(chalk.white.bold('STATUS:'))
+    console.log(chalk.white.dim('STATUS:'))
     console.log(chalk.bold.bgGreen('  - CONNECTED! (API)' ))
     console.log(chalk.bold.bgGreen('  - CONNECTED! (BOT)' ))
     console.info("")
     console.info("")
-    console.log(chalk.black.bold.bgRed('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
+    console.log(chalk.red.bold.inverse('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
     console.info("")
     console.info("")
     console.log(chalk.white.bold.bgYellow(' COIN THAT WILL PUMP: '))
