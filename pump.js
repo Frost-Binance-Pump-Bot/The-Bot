@@ -496,14 +496,14 @@ function start() {
     console.info("")
     console.info("")
     console.log(chalk.white.dim('STATUS:'))
-    console.log(chalk.bold.bgGreen('  - CONNECTED! (API)' ))
-    console.log(chalk.bold.bgGreen('  - CONNECTED! (BOT)' ))
+    console.log(chalk.green.bold('  - CONNECTED! (API)' ))
+    console.log(chalk.green.bold('  - CONNECTED! (BOT)' ))
     console.info("")
     console.info("")
     console.log(chalk.red.bold.inverse('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
     console.info("")
     console.info("")
-    console.log(chalk.white.bold.bgYellow(' COIN THAT WILL PUMP: '))
+    console.log(chalk.yellow.bold.inverse(' COIN THAT WILL PUMP: '))
 
     var rl = readline.createInterface({
       input: process.stdin,
