@@ -602,9 +602,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.magenta.bold('MANUAL TRADING: ON'))
+              console.log(chalk.green.bold('MANUAL TRADING: ON'))
             } else {
-              console.log(chalk.magenta.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.red.bold('MANUAL TRADING: OFF'))
             }
           }
           if (key === 'M') {
@@ -613,9 +613,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.magenta.bold('MANUAL TRADING: ON'))
+              console.log(chalk.green.bold('MANUAL TRADING: ON'))
             } else {
-              console.log(chalk.magenta.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.red.bold('MANUAL TRADING: OFF'))
             }
           }
           if (key === 'b') {
