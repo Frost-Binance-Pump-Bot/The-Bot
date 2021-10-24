@@ -153,10 +153,10 @@ function calculateTimesAndTriggerOrders() {
     }
     if (!manual) {
       if (HARD_TAKE_PROFIT > 0 && times >= HARD_TAKE_PROFIT) {
-        console.log('\nTRIGGER HARD TAKE PROFIT')
+        console.log(chalk.green.bold('TRIGGER HARD TAKE PROFIT'))
         market_sell()
       } else if (times <= HARD_STOP_LOSS) {
-        console.log('\nTRIGGER HARD STOP LOSS')
+        console.log(chalk.red.bold('TRIGGER HARD STOP LOSS'))
         market_sell()
       }
 
@@ -190,7 +190,7 @@ function calculateTimesAndTriggerOrders() {
           }
 
           timeout = setTimeout(() => {
-            console.log('\nTRIGGER PEAK TAKE PROFIT')
+            console.log(chalk.green.bold('TRIGGER PEAK TAKE PROFIT'))
             market_sell()
           }, PEAK_TAKE_PROFIT_TIMEOUT)
         } catch (err) {
@@ -199,7 +199,7 @@ function calculateTimesAndTriggerOrders() {
       }
 
       if (drawbackStarted && max_profit_times - times > MAX_DRAWBACK) {
-        console.log('\nTRIGGER DRAWBACK TAKE PROFIT')
+        console.log(chalk.cyan.bold('TRIGGER DRAWBACK TAKE PROFIT'))
         market_sell()
       }
 
@@ -287,8 +287,8 @@ function market_buy(percent) {
           console.log(chalk.red.bold('ERROR: BUY FAILED'))
           return
         }
-        console.info(
-          chalk.bgGreen(`Market Buy ${percent * 100 * 1}% SUCCESS`)
+        console.log(
+          chalk.green.bold(`Market Buy ${percent * 100 * 1}% SUCCESS`)
         )
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
@@ -323,7 +323,7 @@ function market_sell(percent, retry = true) {
 
         return
       }
-      console.info(chalk.bgRed(`Market Sell ${percent * 100}% SUCCESS`))
+      console.log(chalk.red.bold(`Market Sell ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
@@ -398,13 +398,13 @@ function getCorrectQuantity(quantity) {
 function getBalance(init = false, cb) {
   binance.balance((error, balances) => {
     if (error) return console.log(error)
-    let newBalance = balances       
-                
+    let newBalance = balances
+
     if (init) {
-      if (newBalance[TRADE_IN]) { 
-    console.clear()
-    console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
-    console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
+      if (newBalance[TRADE_IN]) {
+        console.clear()
+        console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
+        console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
       } else {
         console.log(chalk.red(`WARNING: YOU DO NOT HAVE ANY ${TRADE_IN}`))
         // process.exit()
@@ -452,7 +452,7 @@ function getBalance(init = false, cb) {
         newBalance[TRADE_IN].available !== balance[TRADE_IN].available
       ) {
         console.log(
-          chalk.yellow(
+          chalk.yellow.bold(
             `NOW YOU HAVE ${newBalance[TRADE_IN].available} ${TRADE_IN}`
           )
         )
@@ -524,7 +524,7 @@ function start() {
 	  console.log(chalk.red.bold('PLEASE CHECK TRADING PAIR!'))
           process.exit()
         }
-        
+
         console.info("")
         console.log(chalk.blue.bold('TRADING PAIR SET: ' + symbol))
 
@@ -538,8 +538,8 @@ function start() {
         console.info("")
         tickPriceWS()
         console.info("")
-        
-        console.log(chalk.green.bold('HOTKEY AVAILABLE OPTION:'))
+
+        console.log(chalk.bold('HOTKEY AVAILABLE OPTION:'))
         console.info("")
         console.log(chalk.yellow.bold('1 - SELL ALL'))
         console.log(chalk.yellow.bold('2 - SELL HALF'))
@@ -549,7 +549,7 @@ function start() {
         console.log(chalk.yellow.bold('6 - BUY HALF'))
         console.log(chalk.yellow.bold('7 - BUY QUARTER'))
         console.info("")
-        console.log(chalk.green.bold('MORE HOTKEY AVAILABLE OPTION:'))
+        console.log(chalk.bold('MORE HOTKEY AVAILABLE OPTION:'))
         console.info("")
         console.log(chalk.cyan.bold('b - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)'))
         console.log(chalk.cyan.bold('l - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)'))
@@ -590,9 +590,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.cyan.bold('MANUAL TRADING: ON'))
+              console.log(chalk.magenta.bold('MANUAL TRADING: ON'))
             } else {
-              console.log(chalk.cyan.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.magenta.bold('MANUAL TRADING: OFF'))
             }
           }
           if (key === 'M') {
@@ -601,9 +601,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.cyan.bold('MANUAL TRADING: ON'))
+              console.log(chalk.magenta.bold('MANUAL TRADING: ON'))
             } else {
-              console.log(chalk.cyan.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.magenta.bold('MANUAL TRADING: OFF'))
             }
           }
           if (key === 'b') {
