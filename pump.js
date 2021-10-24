@@ -42,7 +42,7 @@ console.log = function () {
 const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
-  console.error(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
+  console.log(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
 
