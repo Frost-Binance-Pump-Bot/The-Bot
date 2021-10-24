@@ -380,7 +380,7 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.log(chalk.redBright('quantity is LARGER than max'))\
+    console.log(chalk.redBright('quantity is LARGER than max'))
     console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
