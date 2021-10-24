@@ -555,9 +555,9 @@ function start() {
         console.info("")
         console.log(chalk.bold('MORE HOTKEY AVAILABLE OPTION:'))
         console.info("")
-        console.log(chalk.cyan.bold('b  - ', chalk.bgRed('SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)')))
-        console.log(chalk.cyan.bold('l  - ', chalk.bgRed('OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)')))
-        console.log(chalk.cyan.bold('m  - ', chalk.bgRed('Toggle Manual(manual sell & buy [no take profit or stop loss])')))
+        console.log(chalk.cyan.bold('b  - ', chalk.black.bgYellow('SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)')))
+        console.log(chalk.cyan.bold('l  - ', chalk.black.bgYellow('OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)')))
+        console.log(chalk.cyan.bold('m  - ', chalk.black.bgYellow('Toggle Manual(manual sell & buy [no take profit or stop loss])')))
         console.info("")
 
         rl.close()
