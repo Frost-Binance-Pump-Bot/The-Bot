@@ -384,6 +384,7 @@ function getCorrectQuantity(quantity) {
     console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
+    console.info("")
     console.log(chalk.redBright('quantity is SMALLER than min'))
     console.info("")
     quantity = minQty
@@ -502,7 +503,7 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.on('line', function (line) {
+    rl.question('Input Coin:', function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
@@ -548,6 +549,7 @@ function start() {
         console.log(chalk.yellow.bold('7 - BUY QUARTER'))
         console.info("")
         console.log(chalk.green.bold('MORE HOTKEY AVAILABLE OPTION:'))
+        console.info("")
         console.log(chalk.cyan.bold('b - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)'))
         console.log(chalk.cyan.bold('l - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)'))
         console.log(chalk.cyan.bold('m - Toggle Manual(no take profits or stop losses)'))
