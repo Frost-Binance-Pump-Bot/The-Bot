@@ -552,10 +552,10 @@ function start() {
         }
 
         tickPriceHttp()
-        console.info("[                ]:")
+        console.info("")
         tickPriceWS()
-        console.info("[                ]:")
-        handlePrice()
+        console.info("")
+
         console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
         console.info("[                ]:")
         console.log(chalk.green.bold('[', chalk.white.bold('1'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL ALL '), chalk.green.bold('    ]')))
