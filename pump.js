@@ -1,5 +1,3 @@
-const isWin = process.platform === 'win32'
-
 const chalk = require('chalk')
 const readline = require('readline')
 const Binance = require('node-binance-api')
@@ -9,6 +7,15 @@ const utils = require('./utils.js')
 
 // For Console stamping features
 //const console-stamp = require('console-stamp')
+
+var opsys = process.platform;
+if (opsys == "darwin") {
+    opsys = "MacOS";
+} else if (opsys == "win32") {
+    opsys = "Windows";
+} else if (opsys == "linux") {
+    opsys = "Linux";
+}
 
 // for timestamping debugging only
 // require('log-timestamp')
@@ -630,11 +637,19 @@ function start() {
             console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === 'l') {
+	    if (opsys === "Linux") {
+            }
+            console.log(chalk.red.bold.inverse(`WARN: ${opsys} Operating System isn't supported`))
+          } else {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
           }
           if (key === 'L') {
+            if (opsys === "Linux") {
+            }
+            console.log(chalk.red.bold.inverse(`WARN: ${opsys} Operating System isn't supported`))
+          } else {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
