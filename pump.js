@@ -387,9 +387,10 @@ function getCorrectQuantity(quantity) {
   if (decimals === 0 && parseFloat(stepSize) > 0) {
     decimals = 'INT'
   }
+  let test = handlePrice()
 
   if (quantity > maxQty) {
-    handlePrice()
+    console.info(test)
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
     console.log(chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
     console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
