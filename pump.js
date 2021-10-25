@@ -640,7 +640,7 @@ function start() {
 	    if (opsys === "Linux") {
             }
             console.log(chalk.red.bold.inverse(`WARN: ${opsys} Operating System isn't supported`))
-          } else {
+          } else if (opsys === "Windows") {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
@@ -649,7 +649,7 @@ function start() {
             if (opsys === "Linux") {
             }
             console.log(chalk.red.bold.inverse(`WARN: ${opsys} Operating System isn't supported`))
-          } else {
+          } else if (opsys === "Windows") {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
