@@ -6,7 +6,6 @@ const Binance = require('node-binance-api')
 const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
-const console.info = console.info("[                ]:")
 
 // For Console stamping features
 //const console-stamp = require('console-stamp')
