@@ -27,11 +27,11 @@ console.log = function () {
 
         return '[ ' +
                ((hour < 10) ? '0' + hour: hour) +
-               'H:' +
+               ':' +
                ((minutes < 10) ? '0' + minutes: minutes) +
-               'M:' +
+               ':' +
                ((seconds < 10) ? '0' + seconds: seconds) +
-               'S:' +
+               ':' +
                ('00' + milliseconds).slice(-3) +
                'ms ]: ';
     }
@@ -42,6 +42,7 @@ console.log = function () {
 const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
+  console.log(chalk.red.bold('WARNING: API KEY & API SECRET IS MISSING!'))
   console.log(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
@@ -241,7 +242,7 @@ function tickPriceHttp() {
       priceChangePercent = prevDay.priceChangePercent
       if (returnSymbol !== symbol) {
         console.log(
-          chalk.redBright(
+          chalk.red.bold.inverse(
             `WARNING: symbol is ${returnSymbol}, expected${symbol}`
           )
         )
@@ -331,7 +332,7 @@ function market_sell(percent, retry = true) {
 }
 
 function resetStatistics() {
-  console.log(chalk.bgYellow('RESETTING'))
+  console.log(chalk.yellow.bold.inverse('RESETTING'))
   if (snapshot_buy_price) {
     snapshot_buy_price = ''
   }
@@ -358,7 +359,7 @@ function getCorrectQuantity(quantity) {
     maxQty = lotSizeInfo.maxQty
     stepSize = lotSizeInfo.stepSize
   } else {
-    console.log(chalk.red('NO LOT SIZE INFO'))
+    console.log(chalk.red.bold('NO LOT SIZE INFO'))
     minQty = '0.01'
     maxQty = '99999999999'
     stepSize = '0.01'
@@ -420,7 +421,7 @@ function getBalance(init = false, cb) {
         newBalance[TRADE_OUT].available !== balance[TRADE_OUT].available
       ) {
         console.log(
-          chalk.yellow(
+          chalk.yellow.bold(
             `NOW YOU HAVE ${newBalance[TRADE_OUT].available} ${TRADE_OUT}`
           )
         )
@@ -493,6 +494,7 @@ function start() {
     console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.info("")
+    console.log(chalk.cyan.bold('MODIFIED BY:'))
     console.log(chalk.cyan.bold('  @IceWinterBot506' ))
     console.info("")
     console.log(chalk.white.dim('STATUS:'))
@@ -515,7 +517,7 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.question('[                   ]: ', function (line) {
+    rl.question('[                ]: ', function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
@@ -532,7 +534,7 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.log(chalk.black.bold.bgRed('WARN: NO TRADING PAIR'))
+          console.log(chalk.black.bold.bgRed('WARN: NO AVAILABLE TRADING PAIR'))
 	  console.log(chalk.black.bold.bgRed('PLEASE CHECK TRADING PAIR!'))
           process.exit()
         }
@@ -553,7 +555,7 @@ function start() {
 
         console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
         console.info("")
-        console.log(chalk.yellow.bold('1  - ', chalk.yellow.bold.inverse(' SELL ALL ')))
+        console.log(chalk.yellow.bold('1', chalk.white.dim('-'), chalk.yellow.bold.inverse(' SELL ALL ')))
         console.log(chalk.yellow.bold('2  - ', chalk.yellow.bold.inverse(' SELL HALF ')))
         console.log(chalk.yellow.bold('3  - ', chalk.yellow.bold.inverse(' SELL QUARTER ')))
         console.log(chalk.yellow.bold('4  - ', chalk.yellow.bold.inverse(' SELL 10% ')))
