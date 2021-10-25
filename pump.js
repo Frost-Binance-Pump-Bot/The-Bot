@@ -130,7 +130,7 @@ function handlePrice() {
     let times = calculateTimesAndTriggerOrders()
 
     process.stdout.write(
-      `${symbol}  ${colorFn(price)}  ${colorFn(priceChangePercent + '%')}  ${
+      `[                ]: ${symbol}  ${colorFn(price)}  ${colorFn(priceChangePercent + '%')}  ${
         times ? `${colorFn(times.toFixed(2))}x` : ''
       }  ${
         max_profit_times ? `${chalk.magenta(max_profit_times.toFixed(2))}x` : ''
