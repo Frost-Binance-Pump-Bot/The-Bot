@@ -614,9 +614,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.green.bold('MANUAL TRADING:', chalk.green.bold.inverse(' ON')))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.green.bold.inverse('ON')))
             } else {
-              console.log(chalk.red.bold('MANUAL TRADING:', chalk.red.bold.inverse(' OFF')))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.red.bold.inverse('OFF')))
             }
           }
           if (key === 'M') {
@@ -625,9 +625,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.green.bold('MANUAL TRADING:', chalk.green.bold.inverse(' ON')))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.green.bold.inverse('ON')))
             } else {
-              console.log(chalk.red.bold('MANUAL TRADING:', chalk.red.bold.inverse(' OFF')))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.red.bold.inverse('OFF')))
             }
           }
           if (key === 'b') {
@@ -639,7 +639,8 @@ function start() {
           if (key === 'l') {
 	    if (opsys === "Linux") {
             }
-            console.log(chalk.red.bold.inverse(`WARN: ${opsys} Operating System isn't supported`))
+            console.log(chalk.red.bold.inverse(`Virtual Machine Detected`))
+            console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
           } else if (opsys === "Windows") {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
@@ -648,7 +649,8 @@ function start() {
           if (key === 'L') {
             if (opsys === "Linux") {
             }
-            console.log(chalk.red.bold.inverse(`WARN: ${opsys} Operating System isn't supported`))
+	    console.log(chalk.red.bold.inverse(`Virtual Machine Detected`))
+            console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
           } else if (opsys === "Windows") {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
