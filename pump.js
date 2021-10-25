@@ -1,5 +1,3 @@
-const isWin = process.platform === 'win32'
-
 const chalk = require('chalk')
 const readline = require('readline')
 const Binance = require('node-binance-api')
@@ -7,13 +5,52 @@ const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
 
+// For Console stamping features
+//const console-stamp = require('console-stamp')
+
+var opsys = process.platform;
+if (opsys == "darwin") {
+    opsys = "MacOS";
+} else if (opsys == "win32") {
+    opsys = "Windows";
+} else if (opsys == "linux") {
+    opsys = "Linux";
+}
+
 // for timestamping debugging only
 // require('log-timestamp')
+
+var log = console.log;
+
+console.log = function () {
+    var first_parameter = arguments[0];
+    var other_parameters = Array.prototype.slice.call(arguments, 1);
+
+    function formatConsoleDate (date) {
+        var hour = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        var milliseconds = date.getMilliseconds();
+
+        return chalk.magenta.bold('[ ') +
+               ((hour < 10) ? '0' + hour: hour) +
+               ':' +
+               ((minutes < 10) ? '0' + minutes: minutes) +
+               ':' +
+               ((seconds < 10) ? '0' + seconds: seconds) +
+               ':' +
+               ('00' + milliseconds).slice(-3) +
+               'ms' + chalk.magenta.bold(' ]') + ': ' ;
+    }
+
+    log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
+};
 
 const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
-  console.error(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
+  console.log(chalk.red.bold('WARNING: API KEY & API SECRET IS MISSING!'))
+  console.log(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
 
@@ -91,7 +128,9 @@ function handlePrice() {
     process.stdout.clearLine()
     process.stdout.cursorTo(0)
 
-    let colorFn = chalk.green
+    let colorFn = chalk.green.bold
+    let colorFns = chalk.cyan.bold
+    let colorFnx = chalk.yellow.bold
 
     if (price < lastPrice) {
       colorFn = chalk.red
@@ -100,7 +139,7 @@ function handlePrice() {
     let times = calculateTimesAndTriggerOrders()
 
     process.stdout.write(
-      `${symbol}  ${colorFn(price)}  ${colorFn(priceChangePercent + '%')}  ${
+      `[                ]: ${colorFnx(symbolv3)}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
         times ? `${colorFn(times.toFixed(2))}x` : ''
       }  ${
         max_profit_times ? `${chalk.magenta(max_profit_times.toFixed(2))}x` : ''
@@ -124,10 +163,10 @@ function calculateTimesAndTriggerOrders() {
     }
     if (!manual) {
       if (HARD_TAKE_PROFIT > 0 && times >= HARD_TAKE_PROFIT) {
-        console.log('\nTRIGGER HARD TAKE PROFIT')
+        console.log(chalk.green.bold('TRIGGER HARD TAKE PROFIT'))
         market_sell()
       } else if (times <= HARD_STOP_LOSS) {
-        console.log('\nTRIGGER HARD STOP LOSS')
+        console.log(chalk.red.bold('TRIGGER HARD STOP LOSS'))
         market_sell()
       }
 
@@ -161,16 +200,16 @@ function calculateTimesAndTriggerOrders() {
           }
 
           timeout = setTimeout(() => {
-            console.log('\nTRIGGER PEAK TAKE PROFIT')
+            console.log(chalk.green.bold('TRIGGER PEAK TAKE PROFIT'))
             market_sell()
           }, PEAK_TAKE_PROFIT_TIMEOUT)
         } catch (err) {
-          console.error(err)
+          console.log(err)
         }
       }
 
       if (drawbackStarted && max_profit_times - times > MAX_DRAWBACK) {
-        console.log('\nTRIGGER DRAWBACK TAKE PROFIT')
+        console.log(chalk.cyan.bold('TRIGGER DRAWBACK TAKE PROFIT'))
         market_sell()
       }
 
@@ -196,7 +235,7 @@ function tickPriceHttp() {
   if (symbol) {
     binance.prices(symbol, function (error, ticker) {
       if (error) {
-        // console.error('Error fetching price')
+        // console.log('Error fetching price')
         return
       }
       if (price !== ticker[symbol]) {
@@ -206,13 +245,13 @@ function tickPriceHttp() {
     })
     binance.prevDay(symbol, (error, prevDay, returnSymbol) => {
       if (error) {
-        // console.error('Error fetching prevDay')
+        // console.log('Error fetching prevDay')
         return
       }
       priceChangePercent = prevDay.priceChangePercent
       if (returnSymbol !== symbol) {
         console.log(
-          chalk.redBright(
+          chalk.red.bold.inverse(
             `WARNING: symbol is ${returnSymbol}, expected${symbol}`
           )
         )
@@ -228,9 +267,9 @@ function tickPriceWS() {
     binance.websockets.prevDay(symbol, (error, response) => {
       if (error) {
         try {
-          console.error(chalk.red(`WS ERROR ${error.split('\n')[0]}`))
+          console.log(chalk.red(`WS ERROR ${error.split('\n')[0]}`))
         } catch (err) {
-          console.error(err)
+          console.log(err)
         }
         return
       }
@@ -255,12 +294,12 @@ function market_buy(percent) {
       getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
-          console.log(chalk.red.bold('BUY FAILED'))
+          console.log("")
+          console.log(`                                                   :`, chalk.red.bold.inverse('ERROR: BUY FAILED'))
           return
         }
-        console.info(
-          chalk.bgGreen(`Market Buy ${percent * 100 * 1}% SUCCESS`)
-        )
+        console.log("")
+        console.log(`                                                   :`, chalk.green.bold(`Market Buy ${percent * 100 * 1}% SUCCESS`))
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
         }
@@ -268,7 +307,8 @@ function market_buy(percent) {
       }
     )
   } else {
-    console.log(chalk.redBright(`NO ${TRADE_IN} AVAILABLE`))
+    console.log("")
+    console.log(chalk.red.bold.inverse(`NO ${TRADE_IN} AVAILABLE`))
   }
 }
 
@@ -283,27 +323,29 @@ function market_sell(percent, retry = true) {
 
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
-        console.error(error.body ? error.body : error)
-        console.log(chalk.red('SELL FAILED'))
+        console.log("")
+        console.log(`                                                   :`, chalk.red.bold.inverse('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
-            console.log('\nRETRYING...')
+            console.log(`                                                   :`, chalk.green.bold('RETRYING...'))
             market_sell(percent)
           })
         }
 
         return
       }
-      console.info(chalk.bgRed(`Market Sell ${percent * 100}% SUCCESS`))
+      console.log("")
+      console.log(`                                                   :`, chalk.red.bold(`Market Sell ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
-    console.log(chalk.redBright(`NO ${TRADE_OUT} AVAILABLE`))
+    console.log("")
+    console.log(`                                                   :`, chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
 
 function resetStatistics() {
-  console.log(chalk.bgYellow('RESETTING'))
+  console.log(`                                                   :`, chalk.yellow.bold.inverse('RESETTING'))
   if (snapshot_buy_price) {
     snapshot_buy_price = ''
   }
@@ -316,7 +358,7 @@ function resetStatistics() {
       clearTimeout(timeout)
       timeout = null
     } catch (err) {
-      console.error(err)
+      console.log(err)
     }
   }
 }
@@ -330,7 +372,7 @@ function getCorrectQuantity(quantity) {
     maxQty = lotSizeInfo.maxQty
     stepSize = lotSizeInfo.stepSize
   } else {
-    console.error(chalk.red('NO LOT SIZE INFO'))
+    console.log(chalk.red.bold('NO LOT SIZE INFO'))
     minQty = '0.01'
     maxQty = '99999999999'
     stepSize = '0.01'
@@ -351,10 +393,18 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.log(chalk.redBright('quantity is LARGER than max'))
+    console.info("")
+    console.log(`                                                   :`, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(`                                                   :`, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    //console.log(chalk.red.inverse())
+    console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
-    console.log(chalk.redBright('quantity is SMALLER than min'))
+    console.info("")
+    console.log(`                                                   :`, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(`                                                   :`, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    //console.log(chalk.red.inverse())
+    console.info("")
     quantity = minQty
   }
 
@@ -365,20 +415,14 @@ function getCorrectQuantity(quantity) {
 
 function getBalance(init = false, cb) {
   binance.balance((error, balances) => {
-    if (error) return console.error(error)
-    let newBalance = balances       
-                
+    if (error) return console.log(error)
+    let newBalance = balances
+
     if (init) {
-      if (newBalance[TRADE_IN]) { 
-    console.clear()
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log(chalk.yellow.bold(`BINANCE CURRENT WALLET BALANCE:`))
-    console.log(chalk.green.bold(`- ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
+      if (newBalance[TRADE_IN]) {
+        console.clear()
+        console.log(chalk.yellow.bold.inverse(`BINANCE CURRENT WALLET BALANCE:`))
+        console.log(chalk.green.bold(` - ${newBalance[TRADE_IN].available} ${TRADE_IN}`))
       } else {
         console.log(chalk.red(`WARNING: YOU DO NOT HAVE ANY ${TRADE_IN}`))
         // process.exit()
@@ -390,7 +434,7 @@ function getBalance(init = false, cb) {
         newBalance[TRADE_OUT].available !== balance[TRADE_OUT].available
       ) {
         console.log(
-          chalk.yellow(
+          chalk.yellow.bold(
             `NOW YOU HAVE ${newBalance[TRADE_OUT].available} ${TRADE_OUT}`
           )
         )
@@ -416,8 +460,8 @@ function getBalance(init = false, cb) {
             resetStatistics()
           }
         } catch (err) {
-          console.error(err)
-          console.error('Reset statistics failed')
+          console.log(err)
+          console.log('Reset statistics failed')
         }
       }
       if (
@@ -426,7 +470,7 @@ function getBalance(init = false, cb) {
         newBalance[TRADE_IN].available !== balance[TRADE_IN].available
       ) {
         console.log(
-          chalk.yellow(
+          chalk.yellow.bold(
             `NOW YOU HAVE ${newBalance[TRADE_IN].available} ${TRADE_IN}`
           )
         )
@@ -450,24 +494,33 @@ function start() {
     }
 
     exchangeInfo = data.symbols
-    console.log("")
-    console.log("")
-    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.log(chalk.yellow.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.log("")
-    console.log("")
-    console.log("")
-    console.log(chalk.white('STATUS:'))
-    console.log(chalk.green.inverse('- CONNECTED! (API)'))
-    console.log(chalk.green.inverse('- CONNECTED! (BOT)'))
-    console.log("")
-    console.log("")
-    console.log(chalk.bgRed('PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
-    console.log("")
-    console.log("")
-    console.log(chalk.magenta.bold('COIN THAT WILL PUMP:'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.log(chalk.yellow.bold.inverse('BINANCE P   BINANCE PRO BI   CE PR          PRO BINAN    RO BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BI    E PR    NAN   PRO BIN  CE PR        E PRO BINANC   RO BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BI      PRO   NAN   PRO BINA CE PR       CE PRO BINANCE  RO BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BIN NCE P     NAN   PRO   NANCE PR      NCE PRO BIN  CE PRO BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BIN NCE PR    NAN   PRO    ANCE PR     A        BIN   E PRO BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BI      PRO   NAN   PRO    ANCE PR    NANCE PRO BIN      RO BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BI    E PR    NAN   PRO     NCE PR   INANCE PRO BIN       O BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BINANCE P   BINANCE PRO      CE PR  BINANCE PRO BIN         BIN NCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.white.dim('MODIFIED BY:'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.cyan.bold('  @IceWinterBot506' ))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.white.dim('STATUS:'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.green.bold('  - CONNECTED! (API)' ))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.green.bold('  - CONNECTED! (BOT)' ))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.green.bold('  - LOADED! (MODULES)'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.white.dim('NOTES:'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.red.bold('  - PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"), chalk.red.bold('  - PLEASE DO SOME TESTING WITH BLANK WALLET!'))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.log(chalk.yellow.bold.inverse(' INSERT COIN NAME (CASE IS IGNORED): '))
 
     var rl = readline.createInterface({
       input: process.stdin,
@@ -477,11 +530,12 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.on('line', function (line) {
+    rl.question(chalk.yellow.bold.inverse('[ COIN PUMP NAME ]: '), function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
         symbolv2 = `${TRADE_OUT}_${TRADE_IN}`
+        symbolv3 = `${TRADE_OUT}/${TRADE_IN}`
         tradingPairInfo = exchangeInfo.filter(
           (item) => item.symbol == symbol
         )[0]
@@ -494,45 +548,41 @@ function start() {
             (item) => item.filterType === 'MARKET_LOT_SIZE'
           )[0]
         } else {
-          console.error(chalk.red('\nWARN: NO TRADING PAIR'))
+          console.log(chalk.black.bold.bgRed('WARN: NO AVAILABLE TRADING PAIR'))
+	  console.log(chalk.black.bold.bgRed('PLEASE CHECK TRADING PAIR!'))
           process.exit()
         }
-        
-        console.log("")
-        console.log(chalk.blue.bold('\nTRADING PAIR SET: ' + symbol))
-        console.log("")
+
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+        console.log(chalk.cyan.bold('TRADING PAIR SET: ', chalk.green.bold(`${TRADE_OUT}/${TRADE_IN}`)))
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
-          console.log(`GLOBAL ${symbol} is ${globalMarkets[symbol].close}`)
+          console.log(`GLOBAL PRICE OF`, chalk.green.bold(`${TRADE_OUT}/${TRADE_IN}`) + ` is `, chalk.cyan.bold(`${globalMarkets[symbol].close}`))
           handlePrice()
         }
 
         tickPriceHttp()
-        console.log("")
         tickPriceWS()
-        console.log("")
-        
-        console.log(
-          chalk.green.bold(
-            '\nHOTKEY AVAILABLE OPTION:')
-          )
-        console.log(
-          chalk.yellow.bold(
-            '\n1 - SELL ALL\n2 - SELL HALF\n3 - SELL QUARTER\n4 - SELL 10%\n5 - BUY ALL\n6 - BUY HALF\n7 - BUY QUARTER'
-          )
-        )
-        console.log("")
-        console.log(
-          chalk.green.bold(
-            '\nMORE HOTKEY AVAILABLE OPTION:')
-          )
-        console.log(
-          chalk.cyan.bold(
-            '\nb - SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE)\nl - OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE)\nm - Toggle Manual(no take profits or stop losses)'
-          )
-        )
-        console.log("")
+        console.info("")
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+        console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+        console.log(chalk.green.bold('[', chalk.white.bold('1'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL ALL '), chalk.green.bold('    ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('2'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL HALF '), chalk.green.bold('   ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('3'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL QUARTER '), chalk.green.bold(']')))
+        console.log(chalk.green.bold('[', chalk.white.bold('4'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL 10% '), chalk.green.bold('    ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('5'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY ALL '), chalk.green.bold('     ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('6'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY HALF '), chalk.green.bold('    ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('7'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY QUARTER '), chalk.green.bold(' ]')))
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+        console.log(chalk.white.dim('MORE HOTKEY AVAILABLE OPTION:'))
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+        console.log(chalk.green.bold('[', chalk.white.bold('b'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '), chalk.green.bold('         ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('l'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '), chalk.green.bold(' ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('m'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) '), chalk.green.bold(']')))
+        console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
 
         rl.close()
 
@@ -568,9 +618,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.cyan.bold('MANUAL TRADING: ON'))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.green.bold.inverse('ON')))
             } else {
-              console.log(chalk.cyan.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.red.bold.inverse('OFF')))
             }
           }
           if (key === 'M') {
@@ -579,29 +629,38 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.cyan.bold('MANUAL TRADING: ON'))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.green.bold.inverse('ON')))
             } else {
-              console.log(chalk.cyan.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.red.bold.inverse('OFF')))
             }
           }
           if (key === 'b') {
-            console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+            console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === 'B') {
-            console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+            console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === 'l') {
+	    if (opsys === "Linux") {
+            }
+            console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
+          } else if (opsys === "Windows") {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
           }
           if (key === 'L') {
+            if (opsys === "Linux") {
+            }
+            console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
+          } else if (opsys === "Windows") {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
 	  }
           // ctrl-c EXIT
           if (key === '\u0003') {
+            getBalance(true)
             process.exit()
           }
         })
@@ -624,7 +683,7 @@ function start() {
         globalMarkets = { ...globalMarkets, ...markets }
       }
     } catch (err) {
-      // console.error(err)
+      // console.log(err)
     }
   })
 }
