@@ -121,7 +121,8 @@ function handlePrice() {
     process.stdout.clearLine()
     process.stdout.cursorTo(0)
 
-    let colorFn = chalk.green
+    let colorFn = chalk.green.bold
+    let colorFns = chalk.cyan.bold
 
     if (price < lastPrice) {
       colorFn = chalk.red
@@ -130,7 +131,7 @@ function handlePrice() {
     let times = calculateTimesAndTriggerOrders()
 
     process.stdout.write(
-      `[                ]: ${symbol}  ${colorFn(price)}  ${colorFn(priceChangePercent + '%')}  ${
+      `[                ]: ${symbol}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
         times ? `${colorFn(times.toFixed(2))}x` : ''
       }  ${
         max_profit_times ? `${chalk.magenta(max_profit_times.toFixed(2))}x` : ''
