@@ -387,7 +387,7 @@ function getCorrectQuantity(quantity) {
   if (decimals === 0 && parseFloat(stepSize) > 0) {
     decimals = 'INT'
   }
-  let test = handlePrice()
+  const test = handlePrice()
 
   if (quantity > maxQty) {
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
