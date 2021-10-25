@@ -382,18 +382,18 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.info("[                ]:")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
     console.log(chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
     console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
-    console.info("[                ]:")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
-    console.info("[                ]:")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
     console.log(chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
     console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
-    console.info("[                ]:")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
     quantity = minQty
   }
 
@@ -483,8 +483,8 @@ function start() {
     }
 
     exchangeInfo = data.symbols
-    console.info("[                ]:")
-    console.info("[                ]:")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
     console.log(chalk.yellow.bold.inverse('BINANCE P   BINANCE PRO BI   CE PR          PRO BINAN    RO BIN NCE PRO'))
     console.log(chalk.yellow.bold.inverse('BI    E PR    NAN   PRO BIN  CE PR        E PRO BINANC   RO BIN NCE PRO'))
     console.log(chalk.yellow.bold.inverse('BI      PRO   NAN   PRO BINA CE PR       CE PRO BINANCE  RO BIN NCE PRO'))
@@ -495,20 +495,20 @@ function start() {
     console.log(chalk.yellow.bold.inverse('BINANCE P   BINANCE PRO      CE PR  BINANCE PRO BIN         BIN NCE PRO'))
     console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.info("[                ]:")
-    console.info("[                ]:", chalk.white.dim('MODIFIED BY:'))
-    console.info("[                ]:", chalk.cyan.bold('  @IceWinterBot506' ))
-    console.info("[                ]:")
-    console.info("[                ]:", chalk.white.dim('STATUS:'))
-    console.info("[                ]:", chalk.green.bold('  - CONNECTED! (API)' ))
-    console.info("[                ]:", chalk.green.bold('  - CONNECTED! (BOT)' ))
-    console.info("[                ]:", chalk.green.bold('  - LOADED! (MODULES)'))
-    console.info("[                ]:")
-    console.info("[                ]:", chalk.white.dim('NOTES:'))
-    console.info("[                ]:", chalk.red.bold('  - PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
-    console.info("[                ]:", chalk.red.bold('  - PLEASE DO SOME TESTING WITH BLANK WALLET!'))
-    console.info("[                ]:")
-    console.info("[                ]:")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.white.dim('MODIFIED BY:')
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.cyan.bold('  @IceWinterBot506' )
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.white.dim('STATUS:')
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.green.bold('  - CONNECTED! (API)' )
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.green.bold('  - CONNECTED! (BOT)' )
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.green.bold('  - LOADED! (MODULES)')
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.white.dim('NOTES:')
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.red.bold('  - PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!')
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";", chalk.red.bold('  - PLEASE DO SOME TESTING WITH BLANK WALLET!')
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
+    console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
     console.log(chalk.yellow.bold.inverse(' INSERT COIN NAME (CASE IS IGNORED): '))
 
     var rl = readline.createInterface({
@@ -542,7 +542,7 @@ function start() {
           process.exit()
         }
 
-        console.info("[                ]:")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
         console.log(chalk.cyan.bold('TRADING PAIR SET: ', chalk.green.bold(`${TRADE_OUT}/${TRADE_IN}`)))
 
         if (globalMarkets && globalMarkets[symbol]) {
@@ -552,12 +552,12 @@ function start() {
         }
 
         tickPriceHttp()
-        console.info("")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
         tickPriceWS()
-        console.info("")
-        console.info("[                ]:")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
         console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
-        console.info("[                ]:")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
         console.log(chalk.green.bold('[', chalk.white.bold('1'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL ALL '), chalk.green.bold('    ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('2'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL HALF '), chalk.green.bold('   ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('3'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL QUARTER '), chalk.green.bold(']')))
@@ -565,13 +565,13 @@ function start() {
         console.log(chalk.green.bold('[', chalk.white.bold('5'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY ALL '), chalk.green.bold('     ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('6'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY HALF '), chalk.green.bold('    ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('7'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY QUARTER '), chalk.green.bold(' ]')))
-        console.info("[                ]:")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
         console.log(chalk.white.dim('MORE HOTKEY AVAILABLE OPTION:'))
-        console.info("[                ]:")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
         console.log(chalk.green.bold('[', chalk.white.bold('b'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '), chalk.green.bold('         ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('l'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '), chalk.green.bold(' ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('m'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) '), chalk.green.bold(']')))
-        console.info("[                ]:")
+        console.info(chalk.magenta.bold("["), "                ", chalk.magenta.bold("]"), ";")
 
         rl.close()
 
