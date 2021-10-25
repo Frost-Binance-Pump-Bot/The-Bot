@@ -25,7 +25,7 @@ console.log = function () {
         var seconds = date.getSeconds();
         var milliseconds = date.getMilliseconds();
 
-        return chalk.yellow.bold('[ ') +
+        return chalk.magenta.bold('[ ') +
                ((hour < 10) ? '0' + hour: hour) +
                ':' +
                ((minutes < 10) ? '0' + minutes: minutes) +
@@ -33,7 +33,7 @@ console.log = function () {
                ((seconds < 10) ? '0' + seconds: seconds) +
                ':' +
                ('00' + milliseconds).slice(-3) +
-               'ms ]: ';
+               'ms' + chalk.magenta.bold(' ]') + ':' ;
     }
 
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
