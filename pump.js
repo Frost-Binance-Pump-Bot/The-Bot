@@ -387,20 +387,19 @@ function getCorrectQuantity(quantity) {
   if (decimals === 0 && parseFloat(stepSize) > 0) {
     decimals = 'INT'
   }
-  const test = handlePrice()
 
   if (quantity > maxQty) {
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-    console.log(`${test(handlePrice())}`, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
-    console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.log(`                                                   `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(`                                                   `, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     handlePrice()
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-    console.log(`${test}`, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
-    console.log(test, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.log(`                                                   `,chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(`                                                   `,chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
     quantity = minQty
