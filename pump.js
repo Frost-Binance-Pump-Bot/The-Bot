@@ -639,7 +639,6 @@ function start() {
           if (key === 'l') {
 	    if (opsys === "Linux") {
             }
-            console.log(chalk.red.bold.inverse(`Virtual Machine Detected`))
             console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
           } else if (opsys === "Windows") {
             ChromeLauncher.launch({
@@ -649,7 +648,6 @@ function start() {
           if (key === 'L') {
             if (opsys === "Linux") {
             }
-	    console.log(chalk.red.bold.inverse(`Virtual Machine Detected`))
             console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
           } else if (opsys === "Windows") {
             ChromeLauncher.launch({
