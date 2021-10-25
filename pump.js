@@ -519,7 +519,7 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.question(chalk.yellow.bold('[ COIN PUMP NAME ]: '), function (line) {
+    rl.question(chalk.yellow.bold.inverse('[ COIN PUMP NAME ]: '), function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
@@ -547,7 +547,7 @@ function start() {
 
         if (globalMarkets && globalMarkets[symbol]) {
           price = globalMarkets[symbol].close
-          console.log(`GLOBAL PRICE OF`, chalk.green.bold(`${TRADE_OUT}/${TRADE_IN}`) + ` is ${globalMarkets[symbol].close}`)
+          console.log(`GLOBAL PRICE OF`, chalk.green.bold(`${TRADE_OUT}/${TRADE_IN}`) + ` is `, chalk.cyan.bold(`${globalMarkets[symbol].close}`))
           handlePrice()
         }
 
@@ -555,7 +555,7 @@ function start() {
         console.info("")
         tickPriceWS()
         console.info("")
-
+        console.info("[                ]:")
         console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
         console.info("[                ]:")
         console.log(chalk.green.bold('[', chalk.white.bold('1'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL ALL '), chalk.green.bold('    ]')))
