@@ -391,7 +391,7 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-    console.log(test, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(`${test}`, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
     console.log(chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
@@ -399,7 +399,7 @@ function getCorrectQuantity(quantity) {
   } else if (quantity < parseFloat(minQty)) {
     handlePrice()
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-    console.log(test, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(`${test}`, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
     console.log(test, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
