@@ -389,19 +389,18 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-    console.log(`                                                   `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
-    console.log(`                                                   `, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.info("")
+    console.log(`                                                      `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(`                                                      `, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
-    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
-    handlePrice()
-    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-    console.log(`                                                   `,chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
-    console.log(`                                                   `,chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.info("")
+    console.log(`                                                      `,chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(`                                                      `,chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
-    console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
+    console.info("")
     quantity = minQty
   }
 
