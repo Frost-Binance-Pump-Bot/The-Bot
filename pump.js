@@ -25,7 +25,7 @@ console.log = function () {
         var seconds = date.getSeconds();
         var milliseconds = date.getMilliseconds();
 
-        return '[ ' +
+        return chalk.yellow.bold('[ ') +
                ((hour < 10) ? '0' + hour: hour) +
                ':' +
                ((minutes < 10) ? '0' + minutes: minutes) +
