@@ -519,7 +519,7 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.question('[ COIN PUMP NAME ]: ', function (line) {
+    rl.question(chalk.yellow.bold('[ COIN PUMP NAME ]: '), function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
