@@ -298,6 +298,7 @@ function market_buy(percent) {
           console.log(`                                                   :`, chalk.red.bold.inverse('ERROR: BUY FAILED'))
           return
         }
+        console.log("")
         console.log(`                                                   :`, chalk.green.bold(`Market Buy ${percent * 100 * 1}% SUCCESS`))
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
@@ -306,6 +307,7 @@ function market_buy(percent) {
       }
     )
   } else {
+    console.log("")
     console.log(chalk.red.bold.inverse(`NO ${TRADE_IN} AVAILABLE`))
   }
 }
@@ -321,6 +323,7 @@ function market_sell(percent, retry = true) {
 
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
+        console.log("")
         console.log(`                                                   :`, chalk.red.bold.inverse('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
@@ -331,10 +334,12 @@ function market_sell(percent, retry = true) {
 
         return
       }
+      console.log("")
       console.log(`                                                   :`, chalk.red.bold(`Market Sell ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
+    console.log("")
     console.log(`                                                   :`, chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
