@@ -123,6 +123,7 @@ function handlePrice() {
 
     let colorFn = chalk.green.bold
     let colorFns = chalk.cyan.bold
+    let colorFnx = chalk.yellow.bold
 
     if (price < lastPrice) {
       colorFn = chalk.red
@@ -131,7 +132,7 @@ function handlePrice() {
     let times = calculateTimesAndTriggerOrders()
 
     process.stdout.write(
-      `[                ]: ${symbol}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
+      `[                ]: ${colorFnx(symbolv3)}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
         times ? `${colorFn(times.toFixed(2))}x` : ''
       }  ${
         max_profit_times ? `${chalk.magenta(max_profit_times.toFixed(2))}x` : ''
@@ -508,7 +509,7 @@ function start() {
     console.info("[                ]:", chalk.red.bold('  - PLEASE DO SOME TESTING WITH BLANK WALLET!'))
     console.info("[                ]:")
     console.info("[                ]:")
-    console.log(chalk.yellow.bold.inverse(' COIN THAT WILL PUMP: '))
+    console.log(chalk.yellow.bold.inverse(' INSERT COIN NAME (CASE IS IGNORED): '))
 
     var rl = readline.createInterface({
       input: process.stdin,
@@ -518,11 +519,12 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.question('[                ]: ', function (line) {
+    rl.question('[ COIN PUMP NAME ]: ', function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
         symbolv2 = `${TRADE_OUT}_${TRADE_IN}`
+        symbolv3 = `${TRADE_OUT}/${TRADE_IN}`
         tradingPairInfo = exchangeInfo.filter(
           (item) => item.symbol == symbol
         )[0]
