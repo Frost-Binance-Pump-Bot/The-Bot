@@ -294,6 +294,7 @@ function market_buy(percent) {
       getCorrectQuantity(fullQuantity * 1),
       (error, response) => {
         if (error) {
+          console.log("")
           console.log(`                                                   :`, chalk.red.bold.inverse('ERROR: BUY FAILED'))
           return
         }
