@@ -494,7 +494,7 @@ function start() {
     console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
     console.info("")
-    console.log(chalk.cyan.bold('MODIFIED BY:'))
+    console.log(chalk.white.dim('MODIFIED BY:'))
     console.log(chalk.cyan.bold('  @IceWinterBot506' ))
     console.info("")
     console.log(chalk.white.dim('STATUS:'))
@@ -555,19 +555,19 @@ function start() {
 
         console.log(chalk.white.dim('HOTKEY AVAILABLE OPTION:'))
         console.info("")
-        console.log(chalk.yellow.bold('1', chalk.white.dim('-'), chalk.yellow.bold.inverse(' SELL ALL ')))
-        console.log(chalk.yellow.bold('2  - ', chalk.yellow.bold.inverse(' SELL HALF ')))
-        console.log(chalk.yellow.bold('3  - ', chalk.yellow.bold.inverse(' SELL QUARTER ')))
-        console.log(chalk.yellow.bold('4  - ', chalk.yellow.bold.inverse(' SELL 10% ')))
-        console.log(chalk.yellow.bold('5  - ', chalk.yellow.bold.inverse(' BUY ALL ')))
-        console.log(chalk.yellow.bold('6  - ', chalk.yellow.bold.inverse(' BUY HALF ')))
-        console.log(chalk.yellow.bold('7  - ', chalk.yellow.bold.inverse(' BUY QUARTER ')))
+        console.log(chalk.white.bold('1', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL ALL ')))
+        console.log(chalk.white.bold('2', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL HALF ')))
+        console.log(chalk.white.bold('3', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL QUARTER ')))
+        console.log(chalk.white.bold('4', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL 10% ')))
+        console.log(chalk.white.bold('5', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY ALL ')))
+        console.log(chalk.white.bold('6', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY HALF ')))
+        console.log(chalk.white.bold('7', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY QUARTER ')))
         console.info("")
         console.log(chalk.white.dim('MORE HOTKEY AVAILABLE OPTION:'))
         console.info("")
-        console.log(chalk.cyan.bold('b  - ', chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (WHEN USING VIRTUAL MACHINE) ')))
-        console.log(chalk.cyan.bold('l  - ', chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (WHEN NOT USING VIRTUAL MACHINE) ')))
-        console.log(chalk.cyan.bold('m  - ', chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) ')))
+        console.log(chalk.white.bold('b', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) ')))
+        console.log(chalk.white.bold('l', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) ')))
+        console.log(chalk.white.bold('m', chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) ')))
         console.info("")
 
         rl.close()
@@ -604,9 +604,9 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.green.bold('MANUAL TRADING: ON'))
+              console.log(chalk.green.bold('MANUAL TRADING:', chalk.green.bold.inverse(' ON')))
             } else {
-              console.log(chalk.red.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.red.bold('MANUAL TRADING:', chalk.red.bold.inverse(' OFF')))
             }
           }
           if (key === 'M') {
@@ -615,16 +615,16 @@ function start() {
               if (timeout) {
                 clearTimeout(timeout)
               }
-              console.log(chalk.green.bold('MANUAL TRADING: ON'))
+              console.log(chalk.green.bold('MANUAL TRADING:', chalk.green.bold.inverse(' ON')))
             } else {
-              console.log(chalk.red.bold('MANUAL TRADING: OFF'))
+              console.log(chalk.red.bold('MANUAL TRADING:', chalk.red.bold.inverse(' OFF')))
             }
           }
           if (key === 'b') {
-            console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+            console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === 'B') {
-            console.log(`${Binance_Web}${symbolv2}${Binance_Pro}`)
+            console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === 'l') {
             ChromeLauncher.launch({
@@ -638,6 +638,7 @@ function start() {
 	  }
           // ctrl-c EXIT
           if (key === '\u0003') {
+            getBalance(true)
             process.exit()
           }
         })
