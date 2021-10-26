@@ -394,18 +394,14 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
-    console.info("")
     console.log(`                                                   :`, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
     console.log(`                                                   :`, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
-    console.info("")
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
-    console.info("")
     console.log(`                                                   :`, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
     console.log(`                                                   :`, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
-    console.info("")
     quantity = minQty
   }
 
