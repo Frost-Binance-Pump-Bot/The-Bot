@@ -5,11 +5,6 @@ const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
 
-const readline = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
 readline.question('Your License:', function (name) => {
   LICENSE = name;
   readline.close();
