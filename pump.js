@@ -296,11 +296,11 @@ function market_buy(percent) {
       (error, response) => {
         if (error) {
           console.log("")
-          console.log(`                                             `, chalk.red.bold.inverse(`ERROR: BUY FAILED`), chalk.cyan.bold.inverse(` @ ${price}`))
+          console.log(`                                             `, chalk.red.bold.inverse(`ERROR: BUY FAILED`), chalk.yellow.bold.inverse(`@ ${price}`))
           return
         }
         console.log("")
-        console.log(`                                             `, chalk.green.bold(`Market Buy`), chalk.cyan.inverse(` @ ${price}`), chalk.green.bold.inverse(` ${percent * 100 * 1}% SUCCESS`))
+        console.log(`                                             `, chalk.green.bold(`Market Buy`), chalk.yellow.inverse(`@ ${price}`), chalk.green.bold.inverse(` ${percent * 100 * 1}% SUCCESS`))
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
         }
@@ -325,7 +325,7 @@ function market_sell(percent, retry = true) {
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
         console.log("")
-        console.log(`                                             `, chalk.red.bold.inverse(`ERROR: SELL FAILED`), chalk.cyan.bold.inverse(` @ ${price}`))
+        console.log(`                                             `, chalk.red.bold.inverse(`ERROR: SELL FAILED`), chalk.cyan.yellow.inverse(`@ ${price}`))
         if (retry) {
           getBalance(false, () => {
             console.log(`                                             `, chalk.green.bold('RETRYING...'))
@@ -336,7 +336,7 @@ function market_sell(percent, retry = true) {
         return
       }
       console.log("")
-      console.log(`                                             `, chalk.red.bold(`Market Sell`), chalk.cyan.bold.inverse(` @ ${price}`), chalk.red.bold(` ${percent * 100}% SUCCESS`))
+      console.log(`                                             `, chalk.red.bold(`Market Sell`), chalk.cyan.yellow.inverse(`@ ${price}`), chalk.red.bold(` ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
@@ -395,14 +395,12 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info("")
-    console.log(`                                             `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
-    console.log(`                                             `, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.log(`                                             `, chalk.red.bold.inverse('WARN: wallet quantity is SMALLER than min''))
     //console.log(chalk.red.inverse())
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(`                                             `, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
-    console.log(`                                             `, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.log(`                                             `, chalk.red.bold.inverse('WARN: wallet quantity is SMALLER than min'))
     //console.log(chalk.red.inverse())
     quantity = minQty
   }
