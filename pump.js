@@ -631,13 +631,13 @@ function start() {
               console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.red.bold.inverse('OFF')))
             }
           }
-          if (key === 'b') {
+          else if (key === 'b') {
             console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
-          if (key === 'B') {
+          else if (key === 'B') {
             console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
-          if (key === 'l') {
+          else if (key === 'l') {
 	    if (opsys === "Linux") {
             }
             console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
@@ -646,7 +646,7 @@ function start() {
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
           }
-          if (key === 'L') {
+          else if (key === 'L') {
             if (opsys === "Linux") {
             }
             console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
