@@ -55,7 +55,7 @@ if (!API_KEY || !API_SECRET) {
 }
 if (LICENSE === "Mainnet") {
   console.log(chalk.green.bold('Welcomeback Mainnet!'))
-} else if (LICENSE === "") {
+} else if (!LICENSE) {
   console.log(chalk.red.bold('ERROR: License is wrong or missing'))
   process.exit()
 }
