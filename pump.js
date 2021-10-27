@@ -395,7 +395,7 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info("")
-    console.log(`                                             `, chalk.red.bold.inverse('WARN: wallet quantity is SMALLER than min''))
+    console.log(`                                             `, chalk.red.bold.inverse('WARN: wallet quantity is LARGER than min'))
     //console.log(chalk.red.inverse())
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
