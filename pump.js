@@ -493,16 +493,7 @@ function start() {
     exchangeInfo = data.symbols
     console.log("")
     console.log("")
-    console.log(chalk.yellow.bold.inverse('BINANCE P   BINANCE PRO BI   CE PR          PRO BINAN    RO BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BI    E PR    NAN   PRO BIN  CE PR        E PRO BINANC   RO BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BI      PRO   NAN   PRO BINA CE PR       CE PRO BINANCE  RO BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BIN NCE P     NAN   PRO   NANCE PR      NCE PRO BIN  CE PRO BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BIN NCE PR    NAN   PRO    ANCE PR     A        BIN   E PRO BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BI      PRO   NAN   PRO    ANCE PR    NANCE PRO BIN      RO BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BI    E PR    NAN   PRO     NCE PR   INANCE PRO BIN       O BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BINANCE P   BINANCE PRO      CE PR  BINANCE PRO BIN         BIN NCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
-    console.log(chalk.yellow.bold.inverse('BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO BINANCE PRO'))
+    console.log(chalk.yellow.bold.inverse('BINANCE PRO'))
     console.log("")
     console.log(chalk.white.dim('MODIFIED BY:'))
     console.log(chalk.cyan.bold('  @IceWinterBot506' ))
@@ -527,7 +518,7 @@ function start() {
 
     const ChromeLauncher = require('chrome-launcher')
 
-    rl.question(chalk.yellow.bold.inverse('[COIN PUMP NAME] '), function (line) {
+    rl.question(chalk.yellow.bold.inverse('[ COIN NAME ] '), function (line) {
       if (!TRADE_OUT) {
         TRADE_OUT = line.toUpperCase()
         symbol = `${TRADE_OUT}${TRADE_IN}`
@@ -561,10 +552,9 @@ function start() {
 
         tickPriceHttp()
         tickPriceWS()
+        console.info("")
         console.log("")
-        console.log("")
-        console.log("")
-        console.log(chalk.white('HOTKEY AVAILABLE OPTION:'))
+        console.log(chalk.white.bold(' HOTKEY AVAILABLE OPTION:'))
         console.log("")
         console.log(chalk.white.bold(' 1'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL ALL '))
         console.log(chalk.white.bold(' 2'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SELL HALF '))
@@ -574,11 +564,10 @@ function start() {
         console.log(chalk.white.bold(' 6'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY HALF '))
         console.log(chalk.white.bold(' 7'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' BUY QUARTER '))
         console.log("")
-        console.log(chalk.white('MORE HOTKEY AVAILABLE OPTION:'))
-        console.log("")
         console.log(chalk.white.bold(' 8'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '))
         console.log(chalk.white.bold(' 9'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '))
         console.log(chalk.white.bold(' m'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) '))
+        console.log("")
         console.log("")
 
         rl.close()
