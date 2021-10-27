@@ -300,7 +300,7 @@ function market_buy(percent) {
           return
         }
         console.log("")
-        console.log(`                                             `, chalk.green.bold(`Market Buy`), chalk.yellow.inverse(`@ ${price}`), chalk.green.bold.inverse(` ${percent * 100 * 1}% SUCCESS`))
+        console.log(`                                             `, chalk.green.bold(`Market Buy`), chalk.yellow.bold.inverse(`@ ${price}`), chalk.green.bold.inverse(` ${percent * 100 * 1}% SUCCESS`))
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
         }
@@ -325,7 +325,7 @@ function market_sell(percent, retry = true) {
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
         console.log("")
-        console.log(`                                             `, chalk.red.bold.inverse(`ERROR: SELL FAILED`), chalk.cyan.yellow.inverse(`@ ${price}`))
+        console.log(`                                             `, chalk.red.bold.inverse(`ERROR: SELL FAILED`), chalk.yellow.bold.inverse(`@ ${price}`))
         if (retry) {
           getBalance(false, () => {
             console.log(`                                             `, chalk.green.bold('RETRYING...'))
@@ -336,7 +336,7 @@ function market_sell(percent, retry = true) {
         return
       }
       console.log("")
-      console.log(`                                             `, chalk.red.bold(`Market Sell`), chalk.cyan.yellow.inverse(`@ ${price}`), chalk.red.bold(` ${percent * 100}% SUCCESS`))
+      console.log(`                                             `, chalk.red.bold(`Market Sell`), chalk.yellow.bold.inverse(`@ ${price}`), chalk.red.bold(` ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
