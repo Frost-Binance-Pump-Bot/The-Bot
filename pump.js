@@ -132,7 +132,7 @@ function handlePrice() {
     let colorFns = chalk.cyan.bold
     let colorFnx = chalk.yellow.bold
     let stampT = console.log
-
+    let colorFnz = chalk.magenta.bold
     if (price < lastPrice) {
       colorFn = chalk.red
     }
@@ -140,7 +140,7 @@ function handlePrice() {
     let times = calculateTimesAndTriggerOrders()
 
     process.stdout.write(
-      `[ CONNECTED ] ${colorFnx(symbolv3)}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
+      `${colorFnz("[")}%%:%%:%%:%%${colorFnz("]")} ${colorFnx(symbolv3)}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
         times ? `${colorFn(times.toFixed(2))}x` : ''
       }  ${
         max_profit_times ? `${chalk.magenta(max_profit_times.toFixed(2))}x` : ''
@@ -395,14 +395,14 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info("")
-    console.log(`                                              `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
-    console.log(`                                              `, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.log(`                                             `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
+    console.log(`                                             `, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(`                                              `, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
-    console.log(`                                              `, chalk.red.bold.inverse('Please check coin balance to proceed'))
+    console.log(`                                             `, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
+    console.log(`                                             `, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     quantity = minQty
   }
