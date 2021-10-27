@@ -32,7 +32,7 @@ console.log = function () {
         var seconds = date.getSeconds();
         var milliseconds = date.getMilliseconds();
 
-        return chalk.magenta.bold('[ ') +
+        return chalk.magenta.bold('[') +
                ((hour < 10) ? '0' + hour: hour) +
                ':' +
                ((minutes < 10) ? '0' + minutes: minutes) +
@@ -40,7 +40,7 @@ console.log = function () {
                ((seconds < 10) ? '0' + seconds: seconds) +
                ':' +
                ('00' + milliseconds).slice(-3) +
-               'ms' + chalk.magenta.bold(' ]') + ': ' ;
+               'ms' + chalk.magenta.bold(']') +;
     }
 
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
@@ -140,7 +140,7 @@ function handlePrice() {
     let times = calculateTimesAndTriggerOrders()
 
     process.stdout.write(
-      `[    CONNECTED   ]: ${colorFnx(symbolv3)}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
+      `[    CONNECTED   ] ${colorFnx(symbolv3)}  ${colorFns(price)}  ${colorFn(priceChangePercent + '%')}  ${
         times ? `${colorFn(times.toFixed(2))}x` : ''
       }  ${
         max_profit_times ? `${chalk.magenta(max_profit_times.toFixed(2))}x` : ''
