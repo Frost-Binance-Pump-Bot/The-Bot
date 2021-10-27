@@ -64,6 +64,12 @@ if (!API_KEY || !API_SECRET) {
   console.log(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
+
+rl.question('Your License:', function (name) {
+  LICENSE = name;
+  readline.close();
+})
+
 if (LICENSE === "Mainnet") {
   console.log(chalk.green.bold('Welcomeback Mainnet!'))
 } else if (!LICENSE) {
