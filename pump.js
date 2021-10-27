@@ -46,40 +46,18 @@ console.log = function () {
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
 };
 
-const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
+const { API_KEY, API_SECRET, LICENSE, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
   console.log(chalk.red.bold('WARNING: API KEY & API SECRET IS MISSING!'))
   console.log(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
-
-const prompt = require('prompt');
-
-const properties = [
-    {
-        name: 'username',
-        validator: /^[a-zA-Z\s\-]+$/,
-        warning: 'Username must be only letters, spaces, or dashes'
-    },
-    {
-        name: 'password',
-        hidden: true
-    }
-];
-
-prompt.start();
-
-prompt.get(properties, function (err, result) {
-    if (err) { return onErr(err); }
-    console.log('Command-line input received:');
-    console.log('  Username: ' + result.username);
-    console.log('  Password: ' + result.password);
-});
-
-function onErr(err) {
-    console.log(err);
-    return 1;
+if (LICENSE === "Mainnet") {
+  console.log(chalk.green.bold('Welcomeback Mainnet!'))
+} else if (LICENSE === "") {
+  console.log(chalk.red.bold('ERROR: License is wrong or missing'))
+  process.exit()
 }
 
 const {
