@@ -5,6 +5,8 @@ const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
 
+var license = require('./license.json')
+
 // For Console stamping features
 //const console-stamp = require('console-stamp')
 
