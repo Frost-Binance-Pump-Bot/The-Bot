@@ -635,13 +635,19 @@ function start() {
             console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === '9') {
+	    console.log(chalk.red.bold.inverse("WARN: You are about to launch browser link"))
+	    console.log(chalk.red.bold.inverse("WARN: Use key 0 to launch browser link"))
+            console.log(chalk.red.bold.inverse("WARNING: Only use hotkey 0 if you are on Windows platfrom"))
+          }
+          if (key === '0') {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
-          } else if (opsys === "Linux") {
-            console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
           }
           // ctrl-c EXIT
+	  if (key === 's') {
+	    getBalance()
+	  }
           if (key === '\u0003') {
             getBalance(true)
             process.exit()
