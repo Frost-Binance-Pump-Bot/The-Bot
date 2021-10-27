@@ -576,8 +576,8 @@ function start() {
         console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
         console.log(chalk.white.dim('MORE HOTKEY AVAILABLE OPTION:'))
         console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
-        console.log(chalk.green.bold('[', chalk.white.bold('b'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '), chalk.green.bold('         ]')))
-        console.log(chalk.green.bold('[', chalk.white.bold('l'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '), chalk.green.bold(' ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('8'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '), chalk.green.bold('         ]')))
+        console.log(chalk.green.bold('[', chalk.white.bold('9'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '), chalk.green.bold(' ]')))
         console.log(chalk.green.bold('[', chalk.white.bold('m'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) '), chalk.green.bold(']')))
         console.info(chalk.magenta.bold("["), "              ", chalk.magenta.bold("]"))
 
@@ -631,30 +631,16 @@ function start() {
               console.log(chalk.yellow.bold.inverse('MANUAL TRADING:', chalk.red.bold.inverse('OFF')))
             }
           }
-          if (key === 'b') {
+          if (key === '8') {
             console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
-          else if (key === 'B') {
-            console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
-          }
-          if (key === 'l') {
-	    if (opsys === "Linux") {
-            }
-            console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
-          } else if (opsys === "Windows") {
+          if (key === '9') {
             ChromeLauncher.launch({
               startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
             })
-          }
-          if (key === 'L') {
-            if (opsys === "Linux") {
-            }
+          } else if (opsys === "Linux") {
             console.log(chalk.red.bold.inverse(`WARN: Virtual Machine isn't supported`))
-          } else if (opsys === "Windows") {
-            ChromeLauncher.launch({
-              startingUrl: `https://www.binance.com/en/trade/${TRADE_OUT}_${TRADE_IN}?layout=pro`,
-            })
-	  }
+          }
           // ctrl-c EXIT
           if (key === '\u0003') {
             getBalance(true)
