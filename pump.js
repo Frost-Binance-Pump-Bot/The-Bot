@@ -5,7 +5,7 @@ const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
 
-readline.question('Your License:', function (name) {
+rl.question('Your License:', function (name) {
   LICENSE = name;
   readline.close();
 });
