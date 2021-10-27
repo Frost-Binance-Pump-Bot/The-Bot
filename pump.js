@@ -296,7 +296,7 @@ function market_buy(percent) {
       (error, response) => {
         if (error) {
           console.log("")
-          console.log(`                                             `, chalk.red.bold.inverse('ERROR: BUY FAILED'))
+          console.log(`                                             `, chalk.red.bold.inverse(`ERROR: BUY FAILED @ ${price}`))
           return
         }
         console.log("")
@@ -620,9 +620,7 @@ function start() {
             console.log(chalk.yellow.bold.inverse(`${Binance_Web}${symbolv2}${Binance_Pro}`))
           }
           if (key === '9') {
-	    console.log(chalk.red.bold.inverse("WARN: You are about to launch browser link"))
-	    console.log(chalk.red.bold.inverse("WARN: Use key 0 to launch browser link"))
-            console.log(chalk.red.bold.inverse("WARNING: Only use hotkey 0 if you are on Windows platfrom"))
+	    console.log(chalk.red.bold.inverse("WARN: Use key 0; proceed with caution"))
           }
           if (key === '0') {
             ChromeLauncher.launch({
