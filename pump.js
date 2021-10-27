@@ -57,7 +57,7 @@ console.log = function () {
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
 };
 
-const { API_KEY, API_SECRET, LICENSE, HTTP_INTERVAL } = config
+const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
   console.log(chalk.red.bold('WARNING: API KEY & API SECRET IS MISSING!'))
