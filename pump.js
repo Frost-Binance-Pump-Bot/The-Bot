@@ -11,11 +11,6 @@ var rl = readline.createInterface({
       terminal: false,
     })
 
-rl.question('Your License:', function (name) {
-  LICENSE = name;
-  readline.close();
-});
-
 // For Console stamping features
 //const console-stamp = require('console-stamp')
 
@@ -66,9 +61,9 @@ if (!API_KEY || !API_SECRET) {
 }
 
 rl.question('Your License:', function (name) {
-  LICENSE = name;
-  readline.close();
-})
+  LICENSE = name
+  readline.close()
+}
 
 if (LICENSE === "Mainnet") {
   console.log(chalk.green.bold('Welcomeback Mainnet!'))
