@@ -296,11 +296,11 @@ function market_buy(percent) {
       (error, response) => {
         if (error) {
           console.log("")
-          console.log(`                                              `, chalk.red.bold.inverse('ERROR: BUY FAILED'))
+          console.log(`                                             `, chalk.red.bold.inverse('ERROR: BUY FAILED'))
           return
         }
         console.log("")
-        console.log(`                                              `, chalk.green.bold(`Market Buy ${percent * 100 * 1}% SUCCESS`))
+        console.log(`                                             `, chalk.green.bold(`Market Buy ${percent * 100 * 1}% SUCCESS`))
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
         }
@@ -325,10 +325,10 @@ function market_sell(percent, retry = true) {
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
         console.log("")
-        console.log(`                                              `, chalk.red.bold.inverse('ERROR: SELL FAILED'))
+        console.log(`                                             `, chalk.red.bold.inverse('ERROR: SELL FAILED'))
         if (retry) {
           getBalance(false, () => {
-            console.log(`                                              `, chalk.green.bold('RETRYING...'))
+            console.log(`                                             `, chalk.green.bold('RETRYING...'))
             market_sell(percent)
           })
         }
@@ -336,17 +336,17 @@ function market_sell(percent, retry = true) {
         return
       }
       console.log("")
-      console.log(`                                              `, chalk.red.bold(`Market Sell ${percent * 100}% SUCCESS`))
+      console.log(`                                             `, chalk.red.bold(`Market Sell ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
     console.log("")
-    console.log(`                                              `, chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
+    console.log(`                                             `, chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
 
 function resetStatistics() {
-  console.log(`                                              `, chalk.yellow.bold.inverse('RESETTING'))
+  console.log(`                                             `, chalk.yellow.bold.inverse('RESETTING'))
   if (snapshot_buy_price) {
     snapshot_buy_price = ''
   }
@@ -394,11 +394,13 @@ function getCorrectQuantity(quantity) {
   }
 
   if (quantity > maxQty) {
+    console.info("")
     console.log(`                                              `, chalk.red.bold.inverse('WARN: coin quantity is LARGER than max'))
     console.log(`                                              `, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
+    console.info("")
     console.log(`                                              `, chalk.red.bold.inverse('WARN: coin quantity is SMALLER than min'))
     console.log(`                                              `, chalk.red.bold.inverse('Please check coin balance to proceed'))
     //console.log(chalk.red.inverse())
@@ -495,13 +497,8 @@ function start() {
     console.log("")
     console.log(chalk.yellow.bold.inverse('BINANCE PRO'))
     console.log("")
-    console.log(chalk.white.dim('MODIFIED BY:'))
-    console.log(chalk.cyan.bold('  @IceWinterBot506' ))
-    console.log("")
     console.log(chalk.white.dim('STATUS:'))
-    console.log(chalk.green.bold('  - CONNECTED! (API)' ))
-    console.log(chalk.green.bold('  - CONNECTED! (BOT)' ))
-    console.log(chalk.green.bold('  - LOADED! (MODULES)'))
+    console.log(chalk.green.bold('  - CONNECTED!  ' ))
     console.log("")
     console.log(chalk.white.dim('NOTES:'))
     console.log(chalk.red.bold('  - PLEASE DOUBLE CHECK YOUR CONFIG BEFORE STARTING!'))
@@ -567,7 +564,6 @@ function start() {
         console.log(chalk.white.bold(' 8'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '))
         console.log(chalk.white.bold(' 9'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '))
         console.log(chalk.white.bold(' m'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) '))
-        console.log("")
         console.log("")
 
         rl.close()
