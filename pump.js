@@ -63,7 +63,7 @@ if (!API_KEY || !API_SECRET) {
 rl.question('Your License:', function (name) {
   LICENSE = name
   readline.close()
-}
+})
 
 if (LICENSE === "Mainnet") {
   console.log(chalk.green.bold('Welcomeback Mainnet!'))
