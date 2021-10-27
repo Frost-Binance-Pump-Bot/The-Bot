@@ -40,7 +40,7 @@ console.log = function () {
                ((seconds < 10) ? '0' + seconds: seconds) +
                ':' +
                ('00' + milliseconds).slice(-3) +
-               'ms' + chalk.magenta.bold(']') +;
+               'ms' + chalk.magenta.bold(']');
     }
 
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
