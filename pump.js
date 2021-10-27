@@ -52,6 +52,17 @@ console.log = function () {
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
 };
 
+rl.question('Your License:', function (name) {
+  LICENSE = name
+  if (LICENSE === "Mainnet") {
+  console.log(chalk.green.bold('Welcomeback Mainnet!'))
+  } else if (!LICENSE) {
+  console.log(chalk.red.bold('ERROR: License is wrong or missing'))
+  process.exit()
+  }
+  readline.close()
+})
+
 const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
@@ -59,11 +70,6 @@ if (!API_KEY || !API_SECRET) {
   console.log(chalk.red.bold('PLEASE FILL YOUR API KEY & API SECRET IN config.js'))
   process.exit()
 }
-
-rl.question('Your License:', function (name) {
-  LICENSE = name
-  readline.close()
-})
 
 if (LICENSE === "Mainnet") {
   console.log(chalk.green.bold('Welcomeback Mainnet!'))
