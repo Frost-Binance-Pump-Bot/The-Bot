@@ -5,12 +5,6 @@ const config = require('./config.js')
 const pumpConfig = require('./pump-config.js')
 const utils = require('./utils.js')
 
-var rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-      terminal: false,
-    })
-
 // For Console stamping features
 //const console-stamp = require('console-stamp')
 
@@ -52,18 +46,7 @@ console.log = function () {
     log.apply(console, [formatConsoleDate(new Date()) + first_parameter].concat(other_parameters));
 };
 
-rl.question('Your License:', function (name) {
-  LICENSE = name
-  if (LICENSE === "Mainnet") {
-  console.log(chalk.green.bold('Welcomeback Mainnet!'))
-  } else if (!LICENSE) {
-  console.log(chalk.red.bold('ERROR: License is wrong or missing'))
-  process.exit()
-  }
-  readline.close()
-})
-
-const { API_KEY, API_SECRET, HTTP_INTERVAL } = config
+const { API_KEY, API_SECRET, LICENSE, HTTP_INTERVAL } = config
 
 if (!API_KEY || !API_SECRET) {
   console.log(chalk.red.bold('WARNING: API KEY & API SECRET IS MISSING!'))
@@ -71,10 +54,8 @@ if (!API_KEY || !API_SECRET) {
   process.exit()
 }
 
-if (LICENSE === "Mainnet") {
-  console.log(chalk.green.bold('Welcomeback Mainnet!'))
-} else if (!LICENSE) {
-  console.log(chalk.red.bold('ERROR: License is wrong or missing'))
+if (!LICENSE) {
+  console.log(chalk.green.bold('WARNING: LICENSE IS MISSING!'))
   process.exit()
 }
 
@@ -320,11 +301,11 @@ function market_buy(percent) {
       (error, response) => {
         if (error) {
           console.log("")
-          console.log(`                                             `, chalk.red.bold.inverse(`ERROR: BUY FAILED`), chalk.yellow.bold.inverse(`@ ${price}`))
+          console.log(chalk.red.bold.inverse(`ERROR: BUY FAILED`), chalk.yellow.bold.inverse(`@ ${price}`))
           return
         }
         console.log("")
-        console.log(`                                             `, chalk.green.bold(`Market Buy`), chalk.yellow.bold.inverse(`@ ${price}`), chalk.green.bold.inverse(` ${percent * 100 * 1}% SUCCESS`))
+        console.log(chalk.green.bold(`Market Buy`), chalk.yellow.bold.inverse(`@ ${price}`), chalk.green.bold.inverse(` ${percent * 100 * 1}% SUCCESS`))
         if (price) {
           snapshot_buy_price = (' ' + price).slice(1)
         }
@@ -349,10 +330,10 @@ function market_sell(percent, retry = true) {
     binance.marketSell(symbol, quantity, (error, response) => {
       if (error) {
         console.log("")
-        console.log(`                                             `, chalk.red.bold.inverse(`ERROR: SELL FAILED`), chalk.yellow.bold.inverse(`@ ${price}`))
+        console.log(chalk.red.bold.inverse(`ERROR: SELL FAILED`), chalk.yellow.bold.inverse(`@ ${price}`))
         if (retry) {
           getBalance(false, () => {
-            console.log(`                                             `, chalk.green.bold('RETRYING...'))
+            console.log(chalk.green.bold('RETRYING...'))
             market_sell(percent)
           })
         }
@@ -360,17 +341,17 @@ function market_sell(percent, retry = true) {
         return
       }
       console.log("")
-      console.log(`                                             `, chalk.red.bold(`Market Sell`), chalk.yellow.bold.inverse(`@ ${price}`), chalk.red.bold(` ${percent * 100}% SUCCESS`))
+      console.log(chalk.red.bold(`Market Sell`), chalk.yellow.bold.inverse(`@ ${price}`), chalk.red.bold(` ${percent * 100}% SUCCESS`))
       setTimeout(getBalance, 1500)
     })
   } else {
     console.log("")
-    console.log(`                                             `, chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
+    console.log(chalk.red.bold.inverse(`NO ${TRADE_OUT} AVAILABLE`))
   }
 }
 
 function resetStatistics() {
-  console.log(`                                             `, chalk.yellow.bold.inverse('RESETTING'))
+  console.log(chalk.yellow.bold.inverse('RESETTING'))
   if (snapshot_buy_price) {
     snapshot_buy_price = ''
   }
@@ -419,12 +400,12 @@ function getCorrectQuantity(quantity) {
 
   if (quantity > maxQty) {
     console.info("")
-    console.log(`                                             `, chalk.red.bold.inverse('WARN: wallet quantity is LARGER than min'))
+    console.log(chalk.red.bold.inverse('WARN: wallet quantity is LARGER than min'))
     //console.log(chalk.red.inverse())
     quantity = maxQty
   } else if (quantity < parseFloat(minQty)) {
     console.info("")
-    console.log(`                                             `, chalk.red.bold.inverse('WARN: wallet quantity is SMALLER than min'))
+    console.log(chalk.red.bold.inverse('WARN: wallet quantity is SMALLER than min'))
     //console.log(chalk.red.inverse())
     quantity = minQty
   }
@@ -585,6 +566,7 @@ function start() {
         console.log("")
         console.log(chalk.white.bold(' 8'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' SHOW TRADING PAIR BROWSER LINK (Virtual Machine Only) '))
         console.log(chalk.white.bold(' 9'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' OPEN BROWSER LINK WITH THE TRADING PAIR (Non-Virtual Machine) '))
+	console.log("")
         console.log(chalk.white.bold(' m'), chalk.white.dim(' - '), chalk.yellow.bold.inverse(' Toggle Manual(manual sell & buy [no take profit or stop loss]) '))
         console.log("")
 
