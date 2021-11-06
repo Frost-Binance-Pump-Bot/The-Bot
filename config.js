@@ -3,5 +3,7 @@ module.exports = {
   API_KEY: '',
   // Fill your api secret here
   API_SECRET: '',
+  // Fill your license here
+  LICENSE: '',
   HTTP_INTERVAL: 500,
 }
