@@ -12,14 +12,6 @@ sudo make -s altinstall
 
 cd
 
-which python3.9
-
-sudo echo "alias python='python3.9'" >> .bashrc
-sudo echo "alias pip='pip3.9'" >> .bashrc
-
-python -V
-pip -V
-
 pip3.9 install keyboard web3
 
 echo ""
