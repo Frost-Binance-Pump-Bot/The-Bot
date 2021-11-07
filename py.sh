@@ -14,16 +14,14 @@ cd
 
 which python3.9
 
-echo "alias python3='python3.9'" > .bashrc
-echo "alias pip3='pip3.9'" > .bashrc
-echo "alias python='python3.9'" > .bashrc
-echo "alias pip='pip3.9'" > .bashrc
-
-source .bashrc
+sudo echo "alias python='python3.9'" >> .bashrc
+sudo echo "alias pip='pip3.9'" >> .bashrc
 
 python -V
 pip -V
 
 pip3.9 install keyboard web3
 
+echo ""
 echo "Ready To Launch Python 3.9 Files!"
+echo "Restart Needed!"
